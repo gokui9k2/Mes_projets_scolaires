@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+
+{% load static %}
+
+
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SyncLead</title>
+    <link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  
+</head>
+<body>
+    <header class="navbar">
+        <a href="{% url 'index' %}"><div class="logo-title" >
+            <img src="{% static 'images/Logo.png'%}" alt="SyncLead logo placeholder" />
+            <span >SyncLead</span>
+        </div></a>
+        <ul>
+          <li><a href="{% url 'solution' %}">Solution</a></li>
+          <li> <a href="{% url 'abonnement' %}" class="link">Abonnement</a></li>
+          <li> <a href="{% url 'support' %}" class="link">Support</a></li>
+          <li> <a href="{% url 'Lequipe' %}" class="link">L'equipe</a></li>
+        </ul>
+        <div class="navbar-right dropdown">
+            <img src="{% static 'images/connex.png'%}" alt="Login icon" class="dropbtn" />
+            {%if user.is_authenticated%}
+            <div class="dropdown-content">
+                <a href="{% url 'dashboard' %}">Dashboard</a>
+                <a href="{% url 'logout' %}">Se déconnecter</a>
+            </div>
+            {%else%}
+            <div class="dropdown-content">
+                <a href="{% url 'connexion' %}">Connexion</a>
+                <a href="{% url 'inscription' %}">Inscription</a>
+            </div>
+            {%endif%}
+    </div>
+    </header>
+	
+    <main class="main-content">
+        <div class="texting">
+            <p>Le projet SyncLead répond à un besoin crucial dans le suivi client, identifiant un problème fréquent de manque de suivi et de services téléphoniques souvent saturés, entraînant des temps d'attente prolongés et une expérience client dégradée.</p>
+        </div>
+        <div class="image-section">
+        <img src="{% static 'images/phone.png'%}" alt="Login icon"/>
+    </div>
+    
+    </main>
+    <div class="texting1">
+        <p>Notre solution se positionne comme l'outil idéal pour transformer cette réalité. SyncLead propose un assistant répondeur intégré à une intelligence artificielle avancée. Cet assistant prend en charge la gestion des appels, assurant une réponse instantanée et une prise en charge efficace des clients. L'élément clé de notre solution réside dans sa capacité à créer automatiquement une fiche client détaillée à partir de chaque appel.</p>
+        <p>Avec SyncLead, nous visons à révolutionner la manière dont les entreprises gèrent leurs communications téléphoniques en fournissant une solution intégrée, basée sur l'IA, pour un suivi client. Grâce à notre approche innovante, nous aspirons à créer une norme plus élevée dans le domaine de la satisfaction client, tout en permettant aux entreprises d'optimiser leurs ressources et de maximiser leur potentiel de croissance.
+        </p>
+    </div>
+
+</body>
+</html>

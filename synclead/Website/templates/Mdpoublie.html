@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+{% load static %}
+
+
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SyncLead</title>
+    <link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/connexion.css' %}">
+  
+</head>
+<body>
+	
+	
+	<div class="container">
+  <div class="login-box">
+    <div class="logo">
+      <div class="circle">
+      
+      </div>
+      <h2>SyncLead</h2>
+    </div>
+  
+    <form action="{% url 'connexion' %}" method="post">
+      {% csrf_token %}
+      <div class="input-group">
+        <label for="username">Identifiant:</label>
+        <input type="text" id="username" name="username" placeholder="Ecris ici ..." autocomplete="off">
+      </div>
+      
+      <button type="submit">Envoyer un mail</button>
+    </form>
+  </div>
+</div>
+	
+</body>
+</html>

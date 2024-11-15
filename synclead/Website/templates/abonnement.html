@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/abo.css' %}">
+    <title>SyncLead</title>
+    <link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="navbar">
+        <a href="{% url 'index' %}"><div class="logo-title" >
+            <img src="{% static 'images/Logo.png'%}" alt="SyncLead logo placeholder" />
+            <span >SyncLead</span>
+        </div></a>
+        <ul>
+          <li><a href="{% url 'solution' %}">Solution</a></li>
+          <li> <a href="{% url 'abonnement' %}" class="link">Abonnement</a></li>
+          <li> <a href="{% url 'support' %}" class="link">Support</a></li>
+          <li> <a href="{% url 'Lequipe' %}" class="link">L'equipe</a></li>
+        </ul>
+        <div class="navbar-right dropdown">
+            <img src="{% static 'images/connex.png'%}" alt="Login icon" class="dropbtn" />
+            {%if user.is_authenticated%}
+            <div class="dropdown-content">
+                <a href="{% url 'dashboard' %}">Dashboard</a>
+                <a href="{% url 'logout' %}">Se déconnecter</a>
+            </div>
+            {%else%}
+            <div class="dropdown-content">
+                <a href="{% url 'connexion' %}">Connexion</a>
+                <a href="{% url 'inscription' %}">Inscription</a>
+            </div>
+            {%endif%}
+    </div>
+    </header>
+
+    <div class="card-container">
+        <div class="card">
+            <div class="card-header blue">
+                Offre de base
+            </div>
+            <div class="card-body">
+                140 €
+                <br>
+                Par ligne téléphonique par mois
+                <br>
+                X minutes d'appels
+            </div>
+            <div class="card-footer">
+                <a href="{% url 'inscription' %}" class="buy-btn">Souscrire</a>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header purple">
+                Offre avancée
+            </div>
+            <div class="card-body">
+                200 €
+                <br>
+                Par ligne téléphonique par mois
+                <br>
+                X minutes d'appels
+            </div>
+            <div class="card-footer">
+                <a href="{% url 'inscription' %}" class="buy-btn">Souscrire</a>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header dark-blue">
+                Offre ultime
+            </div>
+            <div class="card-body">
+                300 €
+                <br>
+                Par ligne téléphonique par mois
+                <br>
+                X minutes d'appels
+            </div>
+            <div class="card-footer">
+                <a href="{% url 'inscription' %}" class="buy-btn">Souscrire</a>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

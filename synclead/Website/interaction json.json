@@ -1,0 +1,50 @@
+[
+    {
+        "input": "I am searching for an apartment, can u help me ? ",
+        "output": "I'm not able to answer your question with the information provided as it does not include any information about the apartments you are looking for. Please provide more information such as size, location, and amenities so I can assist you in finding an apartment that meets your needs."
+    },
+    {
+        "input": "i am searching for an apartment",
+        "output": "For the above,That'I don'I apologize you can I do you should you have you may not really appreciate your answer\nIt sounds promising by farr\n1.I don'I don'I don'makes into something likewise assistant real estate agencycoudit might sound|Real Estelle (Did nothaving search is possible or something similar to the client\nIf the user'I don'I don'I don'I don'I don'I don'I don'I don'I don'I don'I don'I don'I don'I don'I don'I don'I don'I don'I don'I don'I don'I don'much as close but you may also provides information provided by using the user has this is there are you do you don'I don'I don'I don'I don'I don'I don'I don'I don'I don'I don'saditionally,There could we cannot be detailed information or proposes.I don'I don'I don'I don'I don'I don'I don'I don'I don'I don'I don'I"
+    },
+    {
+        "input": "I am searching for an appartment",
+        "output": "I don't know what specific location you are looking for but we have two options that might interest you. One is a modern studio apartment located in the downtown area and another option is an apartment with a garden located in a residential neighborhood close to schools and parks. Would you like me to provide more details on these options?"
+    },
+    {
+        "input": "yes please",
+        "output": "\nI have found a few apartments that match your criteria. For a studio apartment in downtown area, I suggest the Loft Urbain with panoramic view. It is located in a trendy neighborhood close to recreation and cultural areas. The loft offers a lot of natural light and a great view of the city. It's available for 1,200EUR/month, all charges included. Photos are available upon request. Another option I have is the Studio Moderne in downtown area. It is central and close to public transportations and shops. The studio is fully furnished with a modern kitchen and bathroom. It's available for 1,500EUR/month, all charges excluded."
+    },
+    {
+        "input": "can i make a visit ? ",
+        "output": "Yes, you can make a visit to both of these apartments. Please let me know if\nyou are interested in scheduling one."
+    },
+    {
+        "input": "yes please, what are the dates available ? ",
+        "output": "The studio apartment is located on [address] and it's available for move-in from [date]."
+    },
+    {
+        "input": "I want to schedule a visit",
+        "output": "Please find attached our calendar for your convenience. Let us know if there is a specific date or time that works best for you, and we will arrange a viewing accordingly."
+    },
+    {
+        "input": "parles moi de physique quantique",
+        "output": "I'm sorry but I don't have any information about quantum physics."
+    },
+    {
+        "input": "Votre question:I am Searching for an apartment in the bay area.",
+        "output": "\"I'm sorry, I don't have any information about apartments in the Bay Area.\"."
+    },
+    {
+        "input": "I am searcing for an apartment.",
+        "output": "\"Sure, I'll search in our database what is available, are you searching for anything in particular?\"."
+    },
+    {
+        "input": "Nope, i believe in your judgement.",
+        "output": "What can I do for you today?."
+    },
+    {
+        "input": "What apartments can u propose to me ??????.",
+        "output": "I apologize, I'm sorry I misunderstood your question earlier. Based on your criteria, it looks like a Studio Modern in the downtown area would be the best fit for you. Our Studio Modern apartment is a great option if you are looking for an affordable and convenient option. It has all modern amenities such as a fully equipped kitchen, a spacious bathroom and it is situated near public transportation and shops. The rent is 800EUR/months, all charges included. We also have photos available upon request."
+    }
+]

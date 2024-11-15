@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="{% static 'css/connexion.css' %}">
+<title>Page de Connexion</title>
+</head>
+<body>
+
+<div class="container">
+  <div class="login-box">
+    <div class="logo">
+      <div class="circle">
+      
+      </div>
+      <a href="{% url 'index' %}"><h2>SyncLead</h2></a>
+    </div>
+  
+    <form action="{% url 'connexion' %}" method="post">
+      {% csrf_token %}
+      <div class="input-group">
+        <label for="email">Email:</label>
+       
+        <input type="text" id="email" name="email" placeholder="Ecris ici ..." autocomplete="off">
+      </div>
+      <div class="input-group">
+        <label for="password">Mot de passe:</label>
+        <input type="password" id="password" name="password" placeholder="Ecris ici ...">
+      </div>
+
+      <a href="{% url 'Mdpoublie'%}">Mot de passe oublié ?</a>
+      <button type="submit">Connexion</button>
+    </form>
+	  
+	  <a href="{% url 'inscription'%}">Pas encore de compte ?</a>
+  </div>
+</div>
+
+</body>
+</html>

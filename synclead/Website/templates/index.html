@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+
+{% load static %}
+
+
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SyncLead</title>
+    <link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css">
+  
+</head>
+<body>
+    <header class="navbar">
+        <a href="{% url 'index' %}"><div class="logo-title" >
+            <img src="{% static 'images/Logo.png'%}" alt="SyncLead logo placeholder" />
+            <span >SyncLead</span>
+        </div></a>
+        <ul>
+          <li><a href="{% url 'solution' %}">Solution</a></li>
+          <li> <a href="{% url 'abonnement' %}" class="link">Abonnement</a></li>
+          <li> <a href="{% url 'support' %}" class="link">Support</a></li>
+          <li> <a href="{% url 'Lequipe' %}" class="link">L'equipe</a></li>
+        </ul>
+        <div class="navbar-right dropdown">
+            <img src="{% static 'images/connex.png'%}" alt="Login icon" class="dropbtn" />
+            {%if user.is_authenticated%}
+            <div class="dropdown-content">
+                <a href="{% url 'dashboard' %}">Dashboard</a>
+                <a href="{% url 'logout' %}">Se déconnecter</a>
+            </div>
+            {%else%}
+            <div class="dropdown-content">
+                <a href="{% url 'connexion' %}">Connexion</a>
+                <a href="{% url 'inscription' %}">Inscription</a>
+            </div>
+            {%endif%}
+    </div>
+    </header>
+	
+    <main class="main-content">
+        <div class="text-section">
+            <h1>Une IA qui permet de gérer vos appels téléphoniques.</h1>
+            <p>Transformez vos appels en opportunités !</p>
+            <a href="{% url 'inscription' %}" class="link">
+            <button class="btn">Essayez maintenant</button></a>
+        </div>
+        <div class="video-section">
+            <div class="video-placeholder">
+                <span>VIDEO</span>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

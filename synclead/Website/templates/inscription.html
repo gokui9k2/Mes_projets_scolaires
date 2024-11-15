@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'css/in.css'%}">
+<script src="{% static '/scripts/password.js' %}"></script>
+
+<title>Page de Connexion</title>
+
+</head>
+<body>
+
+<div class="container">
+  <div class="login-box">
+    <div class="logo">
+      <div class="circle">
+      
+      </div>
+      <a href="{% url 'index' %}"><h2>SyncLead</h2></a>
+      {% for message in messages %}
+      <h4>{{message}}</h4>
+      {% endfor %}
+    </div>
+    <form method="post" action="{% url 'inscription' %}">
+      {% csrf_token %}
+		<div class="input-group">
+		  
+        <label for="first_name">Prénom:</label>
+       
+        <input type="text" id="first_name" name="first_name" placeholder="Jean" required>
+      </div>
+		<div class="input-group">
+		  
+        <label for="last_name">Nom:</label>
+       
+        <input type="text" id="last_name" name="last_name" placeholder="De La Fontaine" required>
+      </div>
+		
+      <div class="input-group">
+		  
+        <label for="phone_number">Numéro de téléphone:</label>
+       
+        <input type="tel" id="phone_number" name="phone_number" placeholder="Exemple : +33789123456" required>
+      </div>
+      <div class="input-group">
+        <label for="email">Email:</label>
+       
+        <input type="email" id="email" name="email" required>
+      </div>
+    
+      <div class="input-group">
+        <label for="password">Mot de passe:</label>
+        <input type="password" id="password" name="password" placeholder="Ecris ici ..." required oninput="updateProgressBar()">
+      </div>
+      <div id="strength-bar"></div> 
+
+      <div class="input-group">
+        <label for="confirm_password"> Confirmer le Mot de passe:</label>
+        <input type="password" id="confirm_password" name="confirm_password" placeholder="Ecris ici ..." required>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-bar-inner"></div>
+      </div>
+      <button type="submit">S'inscrire</button>
+    </form>
+  </div>
+</div>
+
+</body>
+</html>

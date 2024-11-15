@@ -1,0 +1,153 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Righteous', cursive;
+  background-color: #f3f4f6;
+  padding-top: 4.5rem; /* This should be equal to or greater than the height of your navbar to prevent overlap */
+}
+
+.navbar {
+  position: fixed; /* Fixed position */
+  top: 0; /* Align to the top */
+  left: 0; /* Align to the left */
+  width: 100%; /* Full width */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  z-index: 1000; /* Ensures navbar stays on top of other content */
+}
+
+.navbar ul {
+  list-style-type: none;
+  display: flex;
+  gap: 2rem;
+  font-size: 1.25rem;
+}
+.navbar span{
+  color: #1434A6;
+}
+.navbar a {
+  text-decoration: none;
+  color: #1434A6;
+  transition: color 0.3s ease;
+}
+
+.navbar a:hover {
+  color: #4299e1;
+}
+
+.navbar .fas {
+  color: #1434A6;
+}
+
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.8); 
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  transform: translateX(-100%);
+}
+
+.dropdown-content a {
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown-content a:hover {
+  background-color: #f1f1f1; 
+}
+
+
+.logo-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.75rem;
+}
+
+.logo-title img {
+  width: 40px; /* Logo size */
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-right img {
+  width: 30px; /* Width of the login icon */
+  height: 30px; /* Height of the login icon, set to the same as width for a 1:1 aspect ratio */
+  object-fit: contain; /* This will make sure the image is scaled correctly within the width and height constraints */
+}
+/* Adjustments and corrections */
+/* Remove repeated styles and ensure consistency */
+
+
+.card-container {
+  display: flex;
+  gap: 20px;
+  margin-top: 4rem; /* Adjusted to make space for fixed navbar */
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 1rem;
+  width: 100%;
+}
+
+.card {
+  width: 300px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  margin-bottom: 2rem; /* Add bottom margin for spacing between cards when wrapped */
+}
+
+.card-header {
+  padding: 20px;
+  color: #fff;
+  text-align: center;
+}
+
+.card-header.blue { background-color: #2A3A8F; }
+.card-header.purple { background-color: #4B0082; }
+.card-header.dark-blue { background-color: #000080; }
+
+.card-body {
+  padding: 20px;
+  background-color: #fff;
+}
+
+.card-footer {
+  padding: 20px;
+  background-color: #fff;
+}
+
+.buy-btn {
+  padding: 10px 20px;
+  background-color: #007BFF;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+  display: inline-block;
+}
+
+.buy-btn:hover {
+  background-color: #0056b3;
+}
