@@ -1,6 +1,5 @@
+## French Version:
 # Mon Application Shiny UFC
-
-
 
 ## Interface
 ![Texte alternatif](Image/Interface.png)
@@ -302,165 +301,274 @@ Les bulles prendraient la taille et la couleur de la moyenne des soumissions/tak
 ### Conclusion 
 
 En conclusion, notre application Shiny UFC a permis de mettre en lumière des aspects cruciaux du MMA à l'UFC, offrant à la fois des confirmations de certaines hypothèses et des surprises. Ces analyses contribuent à une meilleure compréhension de ce sport complexe et dynamique, et ouvrent la voie à de futures recherches et explorations dans le domaine des arts martiaux mixtes.
-### Copyright
 
 
+## English Version
 
-Ce code a été traduit c'est l'un des codes de l'un des analayse qui as affectuer des nalyse sur le data set.
+# My Shiny UFC Application
 
-lien:
-https://www.kaggle.com/code/dolynok1/eda-significant-strike-percentage
+## Interface
+![Alternate Text](Image/Interface.png)
 
-createSignificantStrikesHeatmap <- function(ufc_data, input) {
-  if(input$stat_variable == 'Categorie') {
-    # Traitement des données pour les combattants bleus et rouges
-    df_b <- ufc_data %>%
-      select(weight_class, date, B_avg_SIG_STR_pct) %>%
-      drop_na() %>%
-      rename(avg_SIG_STR_pct = B_avg_SIG_STR_pct)
-    
-    df_r <- ufc_data %>%
-      select(weight_class, date, R_avg_SIG_STR_pct) %>%
-      drop_na() %>%
-      rename(avg_SIG_STR_pct = R_avg_SIG_STR_pct)
-    
-    # Fusion des données
-    joined_data <- bind_rows(df_r, df_b)
-    
-    # Calcul de la moyenne par catégorie de poids
-    avg_by_weight_class <- joined_data %>%
-      group_by(weight_class) %>%
-      summarise(avg_SIG_STR_pct = mean(avg_SIG_STR_pct, na.rm = TRUE))
-    
-    # Réorganisation des catégories de poids
-    new_order <- c('Flyweight', 'Bantamweight', 'Featherweight', 'Lightweight', 'Welterweight', 
-                   'Middleweight', 'Light Heavyweight', 'Heavyweight', "Women's Strawweight", 
-                   "Women's Flyweight", "Women's Bantamweight", "Women's Featherweight", 'Catch Weight')
-    
-    # Suppression de la catégorie 'Catch Weight' et réorganisation
-    avg_by_weight_class <- avg_by_weight_class %>%
-      filter(weight_class != 'Catch Weight') %>%
-      mutate(weight_class = factor(weight_class, levels = new_order))
-    
-    # Sélection des catégories de poids masculines
-    mens <- avg_by_weight_class %>%
-      filter(weight_class %in% c('Flyweight', 'Bantamweight', 'Featherweight', 'Lightweight',
-                                 'Welterweight', 'Middleweight', 'Light Heavyweight', 'Heavyweight'))
-    
-    # Création de la heatmap
-    ggplot(mens, aes(x = "", y = weight_class, fill = avg_SIG_STR_pct)) +
-      geom_tile() +
-      geom_text(aes(label = scales::percent(avg_SIG_STR_pct, accuracy = 0.1)), color = "white") +
-      scale_fill_viridis(direction = -1) +
-      theme_minimal() +
-      labs(title = "Pourcentage de coups significatifs par catégorie de poids", fill = "Pourcentage") +
-      theme(axis.title.x = element_blank())
-    }
-    }
+## Introduction and Overview
 
-Ce code de bouton de telechargement est issu d'un tutorial youtube :
+This Shiny application is designed for visualization and analysis of UFC fighters' data. It offers features like interactive maps, charts, and statistical analyses.
 
-lien: https://www.youtube.com/watch?v=4XGI_ye0y4M&t=8465s
+## What is the UFC?
 
-  Téléchargement des données
-  output$save_data <- downloadHandler(
-    filename = function() {
-      paste("data_ufc", Sys.Date(), ".csv", sep = ',')
-    },
-    content = function(file) {
-      write.csv(ufc_data, file)
-    }
-    )
-Ce bloc me permet de mettre a jour les données à chaque changement de données ce bloc m'a été expliqué par chat.gpt:
+The UFC, or Ultimate Fighting Championship, is a leading organization in the world of mixed martial arts (MMA). Established in 1993, the UFC has played a crucial role in popularizing MMA worldwide. It organizes bouts between highly skilled athletes across various combat disciplines, including Brazilian jiu-jitsu, wrestling, boxing, kickboxing, and judo. The UFC is renowned for its spectacular events, bringing together the best fighters globally in tournaments that test their skills and endurance. With strict rules and a competitive format, the UFC has transformed MMA into a respected professional sport followed by millions of fans worldwide.
 
-  observe({
-    if (!is.null(input$stat_variable) && input$stat_variable %in% c('Reach', 'Categorie', 'TD_R_B', 'STR_R_B','Stance')) {
-      # Mise à jour des choix de combattants
-      fighter_choices <- sort(unique(c(ufc_data$R_fighter, ufc_data$B_fighter)))
-      updatePickerInput(session, 'fighter_select', choices = fighter_choices)
-      
-      # Mise à jour des choix de variables pour 'Reach', 'Categorie'
-      if (input$stat_variable %in% c('Reach', 'Categorie')) {
-        ufc_data_categorielle <- select(ufc_data, B_Stance, R_Stance, finish, finish_round, gender, Winner)
-        updateSelectInput(session, 'variable', choices = names(ufc_data_categorielle))
-      }
-    }
-    })
+## Table of Contents
+- [Developer Guide](#developer-guide)
+- [User Guide](#user-guide)
+- [Analysis Report](#analysis-report)
 
-ce bloc permet de faire un curseur dynamique si certaine condition sont remplit ce code a été inspiré de ce site:
+## Developer Guide
 
-lien: https://stackoverflow.com/questions/75582333/is-it-possible-to-exclude-one-value-from-r-shiny-sliderinput
-https://www.youtube.com/watch?v=W75o97mabX0
+**Language**: R  
+**Framework**: Shiny  
+**Recommended IDE**: RStudio  
 
-  output$reach_slider_ui <- renderUI({
-    if(input$tabs == 'stat' && input$stat_variable == 'Reach') {
-      sliderInput("reach_slider", "Sélectionnez la portée (cm):",
-                  min = min(ufc_data$B_Reach_cms, na.rm = TRUE),
-                  max = max(ufc_data$B_Reach_cms, na.rm = TRUE),
-                  value = median(ufc_data$B_Reach_cms, na.rm = TRUE),
-                  step = 1)
-    }
-    })  
+### Code Architecture
 
+- **app.R**: The main entry point of the application.
+- **sidebarPanelUI.R** and **mainPanelUI.R**: Define the UI for the sidebar and main panels.
+- **prepareData.R**: Data preprocessing script.
+- **Map.R**: Functions for generating graphs in the "Map" tab.
+- **Caracteristique.R**: Functions for generating graphs in the "Characteristics" tab.
+- **Statistique.R**: Functions for generating graphs in the "Statistics" tab.
+- **Histo.R**: Functions for generating graphs in the "Histogram" tab.
 
+![Alternate Text](Image/ar.png)
 
-Ce code a ete insperer de ce code il permet de faire la recherche des Caracteristiquedes combattant en temps reel:
+![Alternate Text](Image/archieeeeeee.png)
 
-lien :https://stackoverflow.com/questions/76732649/shinywidgets-pickerinput-in-dt-datatable-with-livesearch
+## User Guide
 
-      pickerInput('fighter_select', 'Choisis un combattant', 
-                  choices = NULL,  # Les choix seront définis côté serveur
-                  options = list(`liveSearch` = TRUE))
+### Installing R and RStudio
 
-Ce code a été modifié mais la base de celui ci provient de cette video:
+1. **R**: Provide a link to [CRAN](https://cran.r-project.org/) to download and install the latest version of R.
+2. **RStudio (optional but recommended)**: Provide a link to [RStudio Download](https://posit.co/download/rstudio/) for downloading and installing RStudio.
+3. Install **Rtools** for proper application functioning.
 
-lien:https://www.youtube.com/watch?v=4XGI_ye0y4M&t=8465s
+### Setup
 
-createPlot <- function(data, input) {
-  # Vérifie si la variable sélectionnée par l'utilisateur n'est pas nulle et fait partie des données
-  if (!is.null(input$variable) && input$variable %in% names(data)) {
-    # Filtrer les données pour supprimer les NA de la variable sélectionnée
-    data <- data %>% filter(!is.na(.data[[input$variable]]))
-    
-    # Si la variable sélectionnée est numérique
-    if (is.numeric(data[[input$variable]])) {
-      # Crée un histogramme pour les données numériques
-      ggplot(data, aes_string(x = input$variable)) +
-        geom_histogram(binwidth = 1) +
-        xlab(input$variable) +
-        theme_minimal()
-    } else {
-      # Si la variable sélectionnée n'est pas numérique
-      ggplot(data, aes_string(x = input$variable)) +
-        geom_bar() +
-        xlab(input$variable) +
-        theme_minimal()
-    }
-  } else {
-    # Si la variable sélectionnée est nulle ou n'est pas dans les données
-    ggplot() +
-      annotate("text", x = 0.5, y = 0.5, label = "Aucune donnée à afficher", vjust = 0.5)
-  }
-}
-Ce code permet de créer une carte interactive. Nous nous sommes inspirés de cette vidéo pour le faire :
+1. Open a terminal and run the following command:  
+   ```bash
+   git clone https://git.esiee.fr/renaulta/ufcproject_petris_renaultr.git
+   ```
 
+2. Open R or RStudio, navigate to the directory containing the cloned code using:  
+   ```R
+   setwd("path/to/cloned/repository")
+   ```
 
+3. Install the required packages listed in `requirements.txt`:  
+   ```R
+   packages <- readLines("requirements.txt")
+   for (pkg in packages) {
+       if (pkg != "") {
+           install.packages(pkg)
+       }
+   }
+   library(shiny)
+   ```
 
-createUfcMap <- function(ufc_data, input) {
-  # Vérifie si la variable sélectionnée pour la carte est 'Localisation'
-  if (input$map_variable == 'Localisation') {
-    leaflet(ufc_data) %>%  # Utilise le package leaflet pour créer une carte interactive
-      addTiles() %>%  # Ajoute les tuiles de base de la carte (fond de carte)
-      addCircleMarkers(
-        lng = ~longitude,  # Définit la longitude pour le positionnement des marqueurs
-        lat = ~latitude,  # Définit la latitude pour le positionnement des marqueurs
-        color = "green",  # Couleur des marqueurs
-        radius = 5,  # Taille des marqueurs
-        popup = ~paste("Latitude:", latitude, "<br>", "Longitude:", longitude)  # Crée des popups affichant la latitude et la longitude
-      )
-  }
-}
+### Running the Application
 
-lien :https://www.youtube.com/watch?v=aBR9dIOjrMg
+Launch the app with the following command in R/RStudio:  
+```R
+runApp("app.R")
+```
 
-Nous avons parfois utilisé chatgpt pour corriger certaines erreurs.
+### Features
+
+This Shiny application provides an analysis of a UFC dataset. It aims to identify various fighter characteristics that may influence fight outcomes. A dedicated tab also allows users to view individual fighters' characteristics.
+
+- **Navigation**: Use tabs like "Map," "Data," "Statistics," etc. Each tab offers unique insights and information.
+- **Dynamic Statistics**: The "Statistics" tab features a dynamic graph where users can select a reach value, and the graph updates to display the win percentage for fighters with that reach.
+  ![Alternate Text](Image/Reach_sup.png)
+
+- **Fighter Characteristics**: In the "Characteristics" tab, users can select a fighter to view their detailed attributes.
+  ![Alternate Text](Image/Carac_ufc.png)
+
+- **Data Viewing and Export**: The "Data" tab allows users to view and download data via a dedicated button.
+
+## Analysis Report
+
+### Analysis of Categorical Data
+
+#### Stance
+
+A fighter's stance, or combat posture, plays a crucial role in determining their strategy and effectiveness in both offense and defense during a fight. For instance, a southpaw may present unexpected attack angles to an orthodox opponent, while an open stance can create unique opportunities for cross strikes.
+
+The **Stance** variable represents the fighting posture of different fighters:
+
+- **Orthodox**: Standard position for right-handed fighters, with the right hand back and the left hand forward.
+- **Southpaw**: Opposite of orthodox, designed for left-handed fighters, with the left hand back and the right hand forward.
+- **Open Stance**: A matchup between an orthodox and a southpaw, where the lead hands and feet are on the same side.
+- **Switch**: The ability to transition between orthodox and southpaw positions.
+
+![Histogram](Image/B_Stance.png)  
+![Histogram](Image/R_Stance.png)
+
+These histograms reveal a significantly higher number of orthodox fighters compared to southpaws, switch fighters, or those with an open stance. The limited number of switch and open stance fighters makes detailed analysis challenging. However, it raises an intriguing question: do orthodox fighters have an advantage over southpaws?
+
+![Statistical Analysis](Image/Stat_Stance.png)
+
+Theoretically, one might expect southpaws to have a higher win rate since most fighters are orthodox and may be less accustomed to facing southpaws, who could surprise them with different attack angles. However, our findings suggest otherwise. Southpaws have a win probability of 51.6% against orthodox fighters, which is not significantly higher.
+
+---
+
+#### Fight Outcomes
+
+![Outcome Chart](Image/Finish.png)
+
+MMA fights in the UFC can end in various ways, each reflecting distinct strategies and performances by the fighters. This histogram provides a detailed analysis of the most common fight outcomes in the UFC.
+
+- **U-DEC (Unanimous Decision)**: A unanimous decision by the judges, where all agree on the winner.
+- **KO/TKO (Knockout/Technical Knockout)**: A fighter wins by knocking out the opponent or forcing them to stop due to inability to continue.
+- **SUB (Submission)**: A win achieved by forcing the opponent to tap out through a submission hold.
+- **S-DEC (Split Decision)**: A split decision by the judges, indicating disagreement among at least two judges on the winner.
+- **M-DEC (Majority Decision)**: A majority decision where most judges agree on the winner, with one judge possibly dissenting.
+- **DQ (Disqualification)**: A fighter is disqualified, granting the opponent victory, usually due to severe rule violations or inappropriate behavior.
+
+![Outcome Analysis](Image/finish.png)
+
+The data shows that most fights end in decisions, meaning there is no KO or submission within the allotted time, and the judges determine the winner. The second most frequent fight outcome is a KO.
+
+---
+
+#### Finish Round
+
+The round in which UFC fights end depends on various factors, including the match's duration.
+
+![Round Finish Histogram](Image/finish_round.png)
+
+This histogram illustrates the distribution of round finishes in the UFC. Typically, a match consists of three rounds, except for championship fights, which have five rounds. It is unsurprising that very few fights end in the fifth round. Most fights conclude in the third round, which aligns with our earlier observation that many fights end by decision.
+
+---
+
+#### Gender
+
+This histogram highlights the significant disparity between male and female participants in MMA. This gap is not unique to MMA but is common in many combat sports, which is unfortunate.
+
+![Gender Histogram](Image/gender.png)
+
+---
+
+#### Winner
+
+This histogram shows the number of victories by fighters on the blue side and the red side. The red side often records more wins because it typically includes the champions of each category and the top challengers.
+
+![Winner Histogram](Image/Winner.png)
+
+---
+
+### Moving to the Statistics Tab:
+
+#### Reach
+
+![Jon Jones Illustration](Image/jon_jones_.png)
+
+Reach in MMA is a critical factor that can provide a significant tactical advantage, influencing the fight's strategy and outcome. Our analysis explores how a superior reach affects fight dynamics, impacting range, defense, and attack effectiveness.
+
+![Reach Statistics](Image/Stat_Reach_full.png)  
+![Stance Comparison](Image/Stat_stancesup.png)
+
+We analyzed the impact of reach on fight outcomes. Reach, or wingspan, is the distance between the tips of a fighter's outstretched arms. It can be a substantial advantage. The first graph shows the win percentage based on reach. However, since many fighters share the same reach, this data may not be highly relevant. Therefore, we examined the win percentage for fighters with a 10 cm reach advantage over their opponents. Surprisingly, the results are closer than expected: fighters with a 10 cm reach advantage win more often. While we could conduct a similar analysis with a 20 cm reach difference, such matchups are too rare to provide meaningful insights.
+
+### Significant Strikes & Decision
+
+The analysis of the relationship between the number of significant strikes landed and the judges' decisions across different weight classes in MMA provides valuable insights into the dynamics of a fight. By focusing on various weight categories, our study aims to decipher how the frequency and effectiveness of strikes influence the outcome of the fights. This approach allows us to explore the tactical and technical nuances that distinguish these categories, revealing interesting trends in fighting strategies.
+
+Weight is an important factor in a fight and is categorized for each fighter. The categories are as follows:
+
+- **Flyweight**  
+  Weight Limit: 56.7 kg (125 lb)  
+  Description: The flyweight category is the lightest in the UFC. Fighters in this category are agile and fast, offering dynamic fights with striking and submission techniques.
+
+- **Bantamweight**  
+  Weight Limit: 61.2 kg (135 lb)  
+  Description: Bantamweight fighters are fast and technical. Fights in this category are often characterized by a mix of power and agility.
+
+- **Featherweight**  
+  Weight Limit: 65.8 kg (145 lb)  
+  Description: Featherweight fighters are light yet powerful. Fights in this category are known for their energy and intensity.
+
+- **Lightweight**  
+  Weight Limit: 70.3 kg (155 lb)  
+  Description: Lightweight fighters combine speed, power, and endurance. The lightweight category is one of the most popular, with often spectacular fights.
+
+- **Welterweight**  
+  Weight Limit: 77.1 kg (170 lb)  
+  Description: Welterweight fighters are versatile, combining power and technical skills. This category is known for its intense competition.
+
+- **Middleweight**  
+  Weight Limit: 83.9 kg (185 lb)  
+  Description: Middleweight fighters are powerful and technical. Fights in this category are often marked by high-level striking and grappling skills.
+
+- **Light Heavyweight**  
+  Weight Limit: 93.0 kg (205 lb)  
+  Description: Light heavyweight fighters are powerful and agile. This category blends the strength of heavyweight fighters with the speed of lighter categories.
+
+- **Heavyweight**  
+  Weight Limit: No upper limit  
+  Description: Heavyweight fighters are the largest in the UFC. With no upper weight limit, this category often features explosive fights with phenomenal power.
+
+Each weight class offers a unique dynamic, creating a diversity of strategic approaches and fighting styles within the UFC. These categories allow fighters to find the weight class that best matches their physical and technical abilities, ensuring fair and exciting competitions.
+
+![Category Statistics](Image/Stat_cat.png)
+
+In this tab, our goal was to analyze the relationship between the number of significant strikes landed and the percentage of decisions in different weight classes. We observed that in the lightweight category, the percentage of significant strikes is lower (42%) compared to the heavyweight category (48.5%). Lightweight fighters, being more agile, may have more difficulty landing strikes on their opponents, while as you move up in weight classes, fighters tend to be less agile, more susceptible to taking hits, and less enduring. Moreover, there appears to be a correlation between the percentage of significant strikes and fight finishes by decision: the higher the percentage of significant strikes, the less likely the fight is to end by decision, and vice versa, which makes sense.
+
+### Age & Performance
+
+In the world of combat sports, age is a central concern. While some sports professionals emphasize that it cannot be compared to experience, it is important to note that fighters' physical performances are closely linked to their age.  
+Thus, the various techniques related to victory by decision or KO/TKO are, to some extent, influenced by the fighters' age.  
+We decided to observe how the average number of significant strikes evolves with the fighters' age.  
+Indeed, we observe an influence, with the parameter being most predominant between the ages of 25 and 30. The argument of "experience" comes into play in striking (stand-up combat). 
+
+![Significant Strikes](Image/Stat_TD.png)
+
+With this graph, our goal was to examine the influence of fighters' age on their average number of takedowns. It clearly shows a significant trend around the age of 30.
+
+![Striking](Image/Stat_STR.png)
+
+Similar to the previous graph, we analyzed the influence of fighters' age on the average number of significant strikes landed. A notable trend also appears around the age of 30.
+
+The purpose of these two graphs was to determine a fighter's 'prime' age. Given that combat statistics are generally better around the age of 30, we could deduce that fighters are at their peak at this age. Ideally, we would have liked to calculate a victory percentage for each age range, but due to time constraints, this feature was not implemented.
+
+### Map
+
+Let’s now move on to the Map tab:
+
+This map illustrates the distribution of UFC fighters across various countries. It is notable that the highest concentration of fighters is found on the American continent. In comparison, the number of fighters from Europe is relatively low, which could be attributed to the historical bans on this combat sport in Europe, where it was considered too violent.
+
+![Map of Fighters](Image/Carte_nat.png)
+
+In this second map, we present the distribution of UFC events. The majority of these events take place on the American continent, which makes sense given that most fighters are of American origin.
+
+![Map of Events](Image/Carte_rep.png)
+
+### Characteristics
+
+In this tab, we have grouped the different characteristics of fighters. You can search for your favorite fighter and see their characteristics. Additionally, there is a graph showing how they finished most of their fights.
+
+![Fighter Stats](Image/stat_ufc.png)
+
+## Going Further
+
+Building on the previous analyses, it becomes interesting to look for a correlation between differences in reach, height, and the probability of victory. To confirm this analysis, calculating a correlation matrix or simple correlation coefficients may be appropriate.  
+It also makes sense to analyze the evolution of the distribution of origins over the years, as the league has continually evolved and now includes more fighters from diverse backgrounds. Thus, an interactive pie chart could be interesting here.  
+One approach could be to calculate the frequency of origins for a fixed date. Then, by varying the date using a slider, we could refresh the pie chart according to the various time values in our dataframe. For data quantity reasons, the refresh should only be done for years within a 1-4 year range.  
+The same reasoning applies to the distribution of venues where UFC fights take place.  
+Additionally, an analysis of KO distribution across weight classes could confirm the adage made by many combat sports enthusiasts that the heavier the weight, the stronger the knockout power. Thus, we might expect, as with the distribution of the average number of significant strikes, a higher number of KOs in the heavier weight classes.  
+The execution method for this analysis could involve calculating the frequency of KOs based on the 'finish' column for each weight class.  
+Finally, it would be valuable to visualize fighting trends by fighter origin. Different origins imply various fighting methods, techniques, and habits. For example, we could analyze the prominence of takedowns for Russian and American fighters, as wrestling is a dominant sport in these regions.  
+The same could be done for the number of successful submissions, as the rear-naked choke is a central submission in Brazilian Jiu-Jitsu.  
+Many options are possible here. One idea would be to implement averages for successful submissions/takedowns on a map using scatter_geo. The bubbles would vary in size and color based on the average number of successful submissions/takedowns by region. Other variables, such as the average number of significant strikes, could also be interesting to analyze in this manner.
+
+### Conclusion
+
+In conclusion, our Shiny UFC application has highlighted crucial aspects of MMA in the UFC, providing both confirmation of certain hypotheses and unexpected insights. These analyses contribute to a better understanding of this complex and dynamic sport, and pave the way for future research and exploration in the field of mixed martial arts.
