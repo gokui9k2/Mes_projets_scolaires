@@ -27,7 +27,8 @@ La méthode `on_open` est utilisée pour initier une session de chat, ce qui pou
 Le fichier `main.py` contient notre application. Nous avons décidé d'utiliser WebSocket, car avec un protocole HTTP classique, il n’était pas possible de créer ce type de projet. La communication avec WebSocket s’effectue via des fichiers JSON, et les informations reçues sont décodées pour être traitées par notre classe de transcription.
 
 Voici un aperçu de notre application web avec le tableau de bord :
-![Texte alternatif](images/'Screenshot from 2024-11-14 18-55-34.png')
+![Texte alternatif](images/Screenshot%20from%202024-11-14%2018-55-34.png)
+
 
 ## Conclusion
 
