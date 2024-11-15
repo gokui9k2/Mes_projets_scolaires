@@ -12,7 +12,7 @@ async def wait_for_db():
     retries = 0
     while retries < 30:  # Maximum 30 tentatives
         try:
-            conn = await asyncpg.connect('postgresql://Faker:nigGaTHEcops987@db:5432/UFC_DATABASE')
+            conn = await asyncpg.connect('postgresql://Faker:AEbaa75daHADdae@db:5432/UFC_DATABASE')
             await conn.close()
             print("✓ Connexion à la base de données établie avec succès")
             return True
