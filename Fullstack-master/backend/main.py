@@ -16,7 +16,7 @@ import math
 load_dotenv()
 
 # Configuration de la base de données et de JWT
-DATABASE_URL = os.getenv("DATABASE_URL", "postgresql+psycopg2://Faker:nigGaTHEcops987@db:5432/UFC_DATABASE")
+DATABASE_URL = os.getenv("DATABASE_URL", "postgresql+psycopg2://Faker:AEbaa75daHADdae@db:5432/UFC_DATABASE")
 JWT_SECRET_KEY = os.getenv("JWT_SECRET_KEY", "should-be-an-environment-variable")
 JWT_SECRET_ALGORITHM = os.getenv("JWT_SECRET_ALGORITHM", "HS256")
 
