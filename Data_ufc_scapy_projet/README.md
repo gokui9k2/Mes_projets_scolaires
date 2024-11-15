@@ -1,3 +1,5 @@
+## French Version:
+
 # UFC Data Projet 
 
 Ce dépôt contient deux codes de Scrapy qui sont intégrés à MongoDB puis traités, mais aussi un tableau de bord avec une barre de recherche implémentée grâce à Elasticsearch, dans un cadre d'application web Python. Le tableau de bord fournit des informations et des analyses sur l'Ultimate Fighting Championship (UFC) entre 1993 et 2024. Les utilisateurs peuvent explorer diverses visualisations et données relatives aux matchs de l'UFC, aux combattants, etc.
@@ -159,7 +161,176 @@ En espérant vous avoir communiqué notre passion pour les arts martiaux ! Merci
 
 ![Texte alternatif](image_rapport/goodbye.png)
 
+## English Version:
 
+# UFC Data Project
+
+This repository contains two Scrapy scripts integrated with MongoDB for data processing, as well as a dashboard with a search bar implemented using Elasticsearch, within a Python web application framework. The dashboard provides information and analytics on the Ultimate Fighting Championship (UFC) from 1993 to 2024. Users can explore various visualizations and data related to UFC matches, fighters, and more.
+
+## User Guide
+
+Navigate to the downloaded folder and then execute:
+For Scrapy:
+```
+cd Code_Docker
+```
+
+To launch the Dash application:
+
+```
+git clone https://github.com/gokui9k2/Data_ufc
+```
+
+```
+cd dash-app-dta
+```
+
+```
+cd MultipageDash
+```
+
+```
+docker-compose up --build
+```
+
+For the Dash app:
+```
+http://localhost:8050/
+```
+
+## Developer Guide
+
+Language: Python
+
+Framework: Dash Plotly, MongoDB, Elasticsearch
+
+Recommended IDE: VSCode, Docker
+
+### Code Architecture
+Scrapy:
+![Alt text](image_rapport/architecture.png)
+
+We decided not to include the file with the Dash application as it is not functional.
+
+### Dash
+![Alt text](image_rapport/multi.png)
+
+## What is the UFC?
+
+### Ultimate Fighting Championships:
+
+The Ultimate Fighting Championship, commonly known as the UFC, is the world's largest mixed martial arts (MMA) organization. Founded in 1993, the UFC has radically transformed the landscape of combat sports by providing a platform for fighters from various martial disciplines to compete in an unrestricted environment.
+
+## Introduction
+
+For this project, we chose to scrape the UFC website due to our passion for combat sports. Here is the relevant URL:
+"http://ufcstats.com/statistics/events/completed".
+
+### Scrapy
+
+We started by scraping data about the fighters, specifically their characteristics. To do this, we used the following code:
+
+- Photo of Scrapy code 1:
+![Alt text](image_rapport/scrapyf.png)
+
+Then, we performed a second scraping task to collect the fighters' data.
+- Photo of Scrapy code 2:
+ ![Alt text](image_rapport/scrapyc.png)
+
+In these scripts, we navigate through multiple pages and scrape the data of interest. We then clean the data to make it more readable and easier to analyze. With each recursive call, we integrate the data into our MongoDB database, although after analysis, this solution seems less ideal due to its complexity.
+
+We made several improvements to our Scrapy script. In the `DC_spider`, we initially performed overly aggressive data cleaning, which led to a significant loss of data. After easing this step, we increased the dataset from 3500 rows and 135 columns to 6500 rows, and after further improvements, to 7133 rows.
+
+To improve our Scrapy script, we implemented several measures:
+1. We set up bulk integration into MongoDB, which reduced processing time from 2.89 seconds to 2.74 seconds per scraped page.
+2. We adjusted the `CONCURRENT_REQUESTS` and `CONCURRENT_REQUESTS_PER_DOMAIN` parameters, and found that values of 32 and 5, respectively, produced the best results, reducing processing time to 1.77 seconds.
+3. We introduced a `safe_get` function to handle cases where a fighter is knocked out, avoiding errors due to missing data. However, this modification didn't improve performance as expected, and processing time increased to 2.60 seconds.
+
+In the end, we had a script like this, but due to time constraints, we couldn’t integrate it into our project, so we decided to include the Python file in the folder for you to review. Here's a preview:
+
+![Alt text](image_rapport/scrapyup.png)
+
+Due to time limitations, we couldn’t integrate the improved script version into our project because of a small error in the code affecting the bulk process, leaving us with a dataset of 7222 rows and one column.
+
+### Data Cleaning
+
+We began by cleaning the data by removing all special characters. The first step was to clean the `class` column and replace it with categories, which was relatively simple because the data was well-structured. Next, we replaced missing values with weight class categories for more precision.
+
+One of the biggest challenges we encountered in this project was transforming location data into latitude and longitude, which took a lot of time. We solved this problem by creating a list of all the locations since there were only 182 unique locations for 7222 entries. It was inefficient to loop through the dataset row by row to update the latitudes and longitudes, so this approach saved performance.
+
+The most time-consuming work involved cleaning the fighter characteristics dataset, which was less well-structured. Many missing values were due to poor documentation on the UFC site.
+
+Here’s what it might have looked like:
+![Alt text](image_rapport/carac.png)
+
+You can see missing data spread throughout. To manage this, we created a new `class` variable for more refined cleaning. Additionally, a `gender` variable was added for greater accuracy.
+
+For missing height and reach data, we replaced the missing values using the correlation between these two measurements. Given the difficulty in replacing weight data precisely, we opted for a machine learning model with 70% accuracy, which is acceptable considering that optimal optimization wasn’t the main goal of this project.
+
+
+### Dash App
+
+UFC Fighters Performance Analysis
+
+![Alt text](image_rapport/poids.png)
+
+The analysis shows that fighters between the ages of 25 and 30 tend to land a higher percentage of significant strikes to the body, which could indicate increased aggression or more refined technique in this age group.
+
+![Alt text](image_rapport/pos.png)
+
+Here, it is interesting to note that there is no clear correlation between strike accuracy and defense against strikes. Some fighters have excellent accuracy without necessarily having superior defense, suggesting offensive-oriented fighting strategies.
+
+![Alt text](image_rapport/def.png)
+
+Defense against takedowns appears evenly distributed across all fighter sizes. This suggests that ground defense ability is not necessarily influenced by a fighter's size, contrary to what one might think.
+
+![Alt text](image_rapport/sig.png)
+
+Younger fighters seem to spend more time in dominant positions on the ground, possibly reflecting better physical conditioning or more developed grappling skills.
+
+![Alt text](image_rapport/taille.png)
+
+The majority of fighters fall into the middle weight categories, with fewer fighters at the extreme lightweight or heavyweight ends. This is consistent with the typical weight distribution in the general population. Note that there is no upper limit for heavyweights.
+
+![Alt text](image_rapport/sol.png)
+
+The analysis shows that ground control time does not vary significantly with a fighter's age. A noticeable spike is observed at age 47, which could be attributed to a small sample size for this age or the exceptional skills of certain older fighters (e.g., Yoel Romero, who remains remarkable into his 50s). Nonetheless, there is a trend indicating that ground control performance, which requires cardio, declines with age. This is supported by the curve.
+
+These charts provide valuable insights into the trends and characteristics of UFC fighters, useful for fans, analysts, and coaches in understanding the strategic aspects of combat.
+
+### Docker
+
+Finally, we moved on to containerizing our code, which was more challenging than expected. We used Docker Compose to link all the other images we needed, such as MongoDB, Elasticsearch, etc., which we had to configure on different ports. We were surprised to find that our Scrapy code took much longer to execute, likely due to a different power allocation. We increased the power allocated to our container, and after that, we wrote the necessary Dockerfiles in all the required files.
+
+Unfortunately, we were unable to fully containerize due to orchestration issues. Everything runs well, but when we launch the app, it runs in second place and closes immediately afterward. We cannot access our dashboard. A solution to this would be to implement an `entrypoint.sh` file, but when we tried this, it caused our computers to crash. Therefore, we decided to present the Scrapy and Dash components in separate folders. Unfortunately, this isn't ideal, and we don’t consider our work complete. We plan to finalize it later this year, though it won’t count for the final grade.
+
+Note that the Dash app is functional and relies on the .json files obtained from the scraping. The app does not depend on our Scrapy as it was performed separately for optimization purposes.
+
+### Elasticsearch
+
+![Alt text](image_rapport/ela.png)
+
+Using Elasticsearch, we implemented a search engine that allows users to retrieve information about fighters based on their names.
+
+### Copyright
+
+We used ChatGPT for some code corrections:
+
+- https://docs.scrapy.org/en/latest/intro/tutorial.html
+- https://dash.plotly.com/tutorial
+- https://www.mongodb.com/languages/python
+- https://dylancastillo.co/elasticsearch-python/
+- https://community.plotly.com/t/how-do-i-access-plotly-dash-on-a-docker-container/57859/2
+
+# Conclusion
+
+This first version of our Data Engineering project dedicated to the UFC represents an initial dive into the rich world of mixed martial arts. However, like any early initiative, there remains potential for improvement and expansion.
+
+Incorporating changes into the spider, further enhancing the app, and managing the data provide numerous avenues for improvement.
+
+We hope we’ve shared our passion for martial arts with you! Thank you for reading!
+
+![Alt text](image_rapport/goodbye.png)
 
 
 
