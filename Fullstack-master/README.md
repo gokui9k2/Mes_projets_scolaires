@@ -22,7 +22,7 @@ docker-compose up --build
 
 Voici un aperçu de notre application :
 
-![Application Screenshot](app.png)
+![Application Screenshot](images/app.png)
 
 ### Comment cela fonctionne ?
 
