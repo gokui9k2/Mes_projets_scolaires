@@ -1,0 +1,225 @@
+# Chargement des packages nécessaires pour l'application
+packages <- c("shiny", "readr", "DT", "dplyr", "ggplot2", "leaflet", "tidyr", 
+              "rnaturalearth", "sf", "shinythemes", "viridis", "scales", "shinyWidgets")
+for (pkg in packages) {
+  # Installe et charge les packages s'ils ne sont pas déjà installés
+  if (!require(pkg, character.only = TRUE)) {
+    install.packages(pkg)
+    library(pkg, character.only = TRUE)
+  }
+}
+
+# Installation spécifique pour les utilisateurs de Windows
+if (.Platform$OS.type == "windows") {
+  if (!require("pkgbuild")) {
+    install.packages("pkgbuild")
+  }
+  if (!pkgbuild::has_build_tools(debug = TRUE)) {
+    install.packages("Rtools")
+  }
+}
+
+# Inclusion de fichiers externes contenant des fonctions ou des éléments d'interface utilisateur
+source("sidebarPanelUI.R")
+source("mainPanelUI.R")
+source("prepareData.R")
+source("Map.R")
+source("Caracteristique.R")
+source("Statistique.R")
+source("Histo.R")
+
+# Chemin vers le fichier CSV contenant les données UFC
+csv_file <-"ufc_R_projet.csv"
+
+# Définition de l'interface utilisateur (UI) de l'application Shiny
+ui <- fluidPage(
+  theme = shinytheme("cyborg"),  # Utilisation du thème 'cyborg' pour l'interface
+  titlePanel("UFC Data & Visualisation"),  # Titre de l'application
+  sidebarLayout(
+    sidebarPanelUI(),  # Panneau latéral défini dans un fichier externe
+    mainPanelUI()      # Panneau principal défini dans un fichier externe
+  )
+)
+
+
+server <- function(input, output, session) {
+  # Le reste du code dans cette section définit la logique du serveur.
+  # Cela inclut la préparation des données, la mise à jour des éléments de l'interface utilisateur
+  # en fonction des entrées de l'utilisateur, et le rendu des graphiques et autres outputs.
+  # Chaque bloc de code dans cette section est responsable d'une partie spécifique de l'application,
+  # comme la création de graphiques, la mise à jour des sélections de l'utilisateur, etc.
+  # Préparation des données
+  ufc_data <- prepareData(csv_file)
+  
+  # Mise à jour des choix pour les inputs
+  observe({
+    if (!is.null(input$stat_variable) && input$stat_variable %in% c('Reach', 'Categorie', 'TD_R_B', 'STR_R_B','Stance')) {
+      # Mise à jour des choix de combattants
+      fighter_choices <- sort(unique(c(ufc_data$R_fighter, ufc_data$B_fighter)))
+      updatePickerInput(session, 'fighter_select', choices = fighter_choices)
+      
+      # Mise à jour des choix de variables pour 'Reach', 'Categorie'
+      if (input$stat_variable %in% c('Reach', 'Categorie')) {
+        ufc_data_categorielle <- select(ufc_data, B_Stance, R_Stance, finish, finish_round, gender, Winner)
+        updateSelectInput(session, 'variable', choices = names(ufc_data_categorielle))
+      }
+    }
+  })
+  
+  output$ufc_data <- renderDT({
+    datatable(ufc_data)
+  })
+  
+  # Autres éléments de l'UI dynamique
+  output$dynamic_stat_ui <- renderUI({
+    if (input$stat_variable == 'Reach') {
+      tagList(
+        plotOutput('win_percentage_Reach'),
+        plotOutput('win_percentage_Reach_sup')
+      )
+    } else if (input$stat_variable == 'Categorie') {
+      tagList(
+        plotOutput('ufc_decisions'),
+        plotOutput('heatmap_nb_de_coup_significatif')
+      )
+    } else if (input$stat_variable == 'TD_R_B') {
+      tagList(
+        plotOutput('R_TD_Age'),
+        plotOutput('B_TD_Age')
+      )
+    } else if (input$stat_variable == 'STR_R_B') {
+      tagList(
+        plotOutput('R_STR_Age'),
+        plotOutput('B_STR_Age')
+      )
+    } else if (input$stat_variable == 'Stance') {
+      tagList(plotOutput('Stance_win'))  # Corrected here
+    }
+  })
+  
+  # Comme avant
+  output$reach_slider_ui <- renderUI({
+    if(input$tabs == 'stat' && input$stat_variable == 'Reach') {
+      sliderInput("reach_slider", "Sélectionnez la portée (cm):",
+                  min = min(ufc_data$B_Reach_cms, na.rm = TRUE),
+                  max = max(ufc_data$B_Reach_cms, na.rm = TRUE),
+                  value = median(ufc_data$B_Reach_cms, na.rm = TRUE),
+                  step = 1)
+    }
+  })  # Comme avant
+  output$dynamic_map_ui <- renderUI({
+    if (input$map_variable == 'Nationalité') {
+      tagList(
+        plotOutput('carte_rep_nat'),  # Carte pour "Nationalité" en premier
+        leafletOutput('Carte_ufc'),
+        plotOutput('carte_repartition')
+      )
+    } else if (input$map_variable == 'Localisation') {
+      tagList(
+        leafletOutput('Carte_ufc'),  # Carte pour "Localisation" en premier
+        plotOutput('carte_repartition'),
+        plotOutput('carte_rep_nat')
+      )
+    }
+  })  # Comme avant
+  
+  # Render des graphiques et autres outputs
+  output$win_percentage_Reach <- renderPlot({
+    createWinPercentageReachPlot(ufc_data, input)
+  }) # Comme avant
+  output$ufc_decisions <- renderPlot({
+    createUfcDecisionsPlot(ufc_data, input)
+  })  # Comme avant
+  output$Carte_ufc <- renderLeaflet({
+    createUfcMap(ufc_data, input)
+  })  # Comme avant
+  output$carte_repartition <- renderPlot({
+    createCountryDistributionPlot(ufc_data, input)
+  })  # Comme avant
+  output$carte_rep_nat <- renderPlot({
+    createNationalityDistributionPlot(ufc_data, input)
+  })  # Comme avant
+  output$heatmap_nb_de_coup_significatif <- renderPlot({
+    createSignificantStrikesHeatmap(ufc_data, input)
+  })  # Comme avant
+  output$fighter_details <- renderTable({
+    createFighterDetails(ufc_data, input$fighter_select)
+  })  # Comme avant
+  output$win_percentage_Reach_sup <- renderPlot({
+    createWinPercentageReachSupPlot(ufc_data, 10, input$tabs, input$stat_variable)
+  }) # Comme avant
+  output$finish_cam <- renderPlot({
+    req(input$fighter_select) # s'assurer qu'un combattant est sélectionné
+    createFinishCamPlot(ufc_data, input$fighter_select)
+  })  # Comme avant
+  output$B_TD_Age <- renderPlot({
+    if (input$stat_variable == 'TD_R_B') {
+      ggplot(ufc_data, aes(x = B_age, y = B_avg_TD_landed)) +
+        geom_point(color = "blue") +
+        theme_minimal() +
+        labs(title = "Relation entre l'âge et le nombre moyen de takedowns réussis (combattants B)",
+             x = "Âge du combattant B",
+             y = "Moyenne de takedowns réussis")
+    }
+  })
+  
+  output$B_TD_Age <- renderPlot({
+    if (input$stat_variable == 'TD_R_B') {
+      createB_TDAgePlot(ufc_data)
+    }
+  })
+  output$Stance_win <- renderPlot({
+    if (input$stat_variable == 'Stance') {
+      createStanceWinPlot(ufc_data, input)
+    }
+  })
+  
+  
+  output$B_STR_Age <- renderPlot({
+    if (input$stat_variable == 'STR_R_B') {
+      createB_STRAgePlot(ufc_data)
+    }
+  })
+  
+  output$R_STR_Age <- renderPlot({
+    if (input$stat_variable == 'STR_R_B') {
+      createR_STRAgePlot(ufc_data)
+    }
+  })
+  
+  output$R_TD_Age <- renderPlot({
+    if (input$stat_variable == 'TD_R_B') {
+      createR_TDAgePlot(ufc_data)
+    }
+  })
+  
+  # Histogramme ou diagramme à barres
+  output$hist <- renderPlot({
+    if (!is.null(ufc_data_categorielle) && nrow(ufc_data_categorielle) > 0) {
+      createPlot(ufc_data_categorielle, input)
+    } else {
+      # Gérer le cas où ufc_data_categorielle est vide ou non disponible
+      plot.new()
+      title(main = "Données non disponibles")
+    }
+  })
+  
+
+  
+  # Téléchargement des données
+  output$save_data <- downloadHandler(
+    filename = function() {
+      paste("data_ufc", Sys.Date(), ".csv", sep = ',')
+    },
+    content = function(file) {
+      write.csv(ufc_data, file)
+    }
+  )
+  
+  
+}
+
+
+# Lancer l'application
+shinyApp(ui = ui, server = server)
+

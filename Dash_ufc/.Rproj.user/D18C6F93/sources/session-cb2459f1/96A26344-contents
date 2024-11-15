@@ -1,0 +1,20 @@
+# Définition de la fonction mainPanelUI
+mainPanelUI <- function() {
+  # Crée un panneau principal dans l'application Shiny
+  mainPanel(
+    # Crée un ensemble d'onglets dans le panneau principal
+    tabsetPanel(
+      id = 'tabs',  # Identifiant pour l'ensemble d'onglets, utilisé pour contrôler quel onglet est actif
+      # Définition des différents onglets
+      tabPanel('Histogram', value = 'histogramTab', plotOutput('hist')),  # Onglet pour afficher un histogramme
+      tabPanel('Statistique', value = 'stat', uiOutput("dynamic_stat_ui")),  # Onglet pour les statistiques avec contenu dynamique
+      tabPanel('Carte', value = 'CarteTab', uiOutput("dynamic_map_ui")),  # Onglet pour afficher une carte avec contenu dynamique
+      tabPanel('Caractéristiques des Combattants', value = 'fighterTab', 
+               tableOutput('fighter_details'),  # Tableau pour les détails des combattants
+               plotOutput('finish_cam')),  # Graphique pour les "finish cams"
+      tabPanel('Data', value = 'dataTableTab', 
+               dataTableOutput('ufc_data'),  # Tableau de données pour afficher les données UFC
+               downloadButton('save_data', 'Save to CSV'))  # Bouton pour télécharger les données en format CSV
+    )
+  )
+}

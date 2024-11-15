@@ -1,0 +1,34 @@
+# Définition de la fonction sidebarPanelUI
+sidebarPanelUI <- function() {
+  # Crée un panneau latéral (sidebarPanel) dans l'application Shiny
+  sidebarPanel(
+    # Panel conditionnel qui s'affiche uniquement lorsque l'onglet 'CarteTab' est sélectionné
+    conditionalPanel(
+      condition = "input.tabs == 'CarteTab'",
+      # Crée un menu déroulant pour sélectionner une variable pour la carte
+      selectInput('map_variable', 'Choisis une variable pour la carte', choices = c('Localisation', 'Nationalité'))
+    ),
+    # Panel conditionnel pour l'onglet 'histogramTab'
+    conditionalPanel(
+      condition = "input.tabs == 'histogramTab'",
+      # Crée un menu déroulant pour choisir une variable, les choix seront définis dans le serveur
+      selectInput('variable', 'Choisis une variable', choices = NULL)
+    ),
+    # Panel conditionnel pour l'onglet 'stat'
+    conditionalPanel(
+      condition = "input.tabs == 'stat'",
+      # Crée un menu déroulant pour choisir une variable pour les statistiques
+      selectInput('stat_variable', 'Choisis une variable pour les statistiques', choices = c('Reach', 'Categorie', 'TD_R_B', 'STR_R_B','Stance'))
+    ),
+    # Panel conditionnel pour l'onglet 'fighterTab'
+    conditionalPanel(
+      condition = "input.tabs == 'fighterTab'",
+      # Crée un sélecteur de combattant avec une fonction de recherche en direct
+      pickerInput('fighter_select', 'Choisis un combattant', 
+                  choices = NULL,  # Les choix seront définis côté serveur
+                  options = list(`liveSearch` = TRUE))
+    ),
+    # Un élément d'interface utilisateur qui sera affiché en fonction de certaines conditions
+    uiOutput("reach_slider_ui")
+  )
+}

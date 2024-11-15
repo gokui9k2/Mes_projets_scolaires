@@ -1,0 +1,82 @@
+
+createUfcMap <- function(ufc_data, input) {
+  # Vérifie si la variable sélectionnée pour la carte est 'Localisation'
+  if (input$map_variable == 'Localisation') {
+    leaflet(ufc_data) %>%  # Utilise le package leaflet pour créer une carte interactive
+      addTiles() %>%  # Ajoute les tuiles de base de la carte (fond de carte)
+      addCircleMarkers(
+        lng = ~longitude,  # Définit la longitude pour le positionnement des marqueurs
+        lat = ~latitude,  # Définit la latitude pour le positionnement des marqueurs
+        color = "green",  # Couleur des marqueurs
+        radius = 5,  # Taille des marqueurs
+        popup = ~paste("Latitude:", latitude, "<br>", "Longitude:", longitude)  # Crée des popups affichant la latitude et la longitude
+      )
+  }
+}
+
+
+createCountryDistributionPlot <- function(ufc_data, input) {
+  # Vérifie si la variable sélectionnée pour la carte est 'Localisation'
+  if (input$map_variable == 'Localisation') {
+    country_data_rep <- table(ufc_data$country)  # Crée un tableau de fréquence des pays
+    
+    # Crée un dataframe avec les pays, leur compte et leur pourcentage
+    country_df_oc <- data.frame(
+      country = names(country_data_rep),
+      Count = as.numeric(country_data_rep),
+      Percentage = (as.numeric(country_data_rep) / sum(country_data_rep)) * 100
+    )
+    
+    # Utilise ggplot2 pour créer un diagramme circulaire
+    ggplot(country_df_oc, aes(x = "", y = Percentage, fill = country)) +
+      geom_col() +  # Crée des barres pour le diagramme
+      coord_polar("y", start = 0) +  # Transforme le graphique en diagramme circulaire
+      theme_void() +  # Utilise un thème sans axes ni étiquettes
+      scale_fill_viridis(discrete = TRUE, option = "D") +  # Utilise une palette de couleurs viridis
+      labs(title = "Répartition des différents événements UFC dans les pays du monde")
+    # Note : 'option = "D"' est un exemple. Vous pouvez essayer différentes options comme "A", "B", "C", "D", etc.
+  }
+}
+
+
+
+createNationalityDistributionPlot <- function(ufc_data, input) {
+  # Vérifie si la variable de carte sélectionnée est 'Nationalité'
+  if (input$map_variable == 'Nationalité') {
+    # Sélectionne et renomme les colonnes pour le premier dataframe
+    ufc_data_nationaliter <- ufc_data %>%
+      select(R_fighter, R_nat) %>%  # Sélectionne les colonnes R_fighter et R_nat
+      rename(fighter = R_fighter, nationaliter = R_nat) %>%  # Renomme les colonnes
+      distinct(fighter, nationaliter, .keep_all = TRUE)  # Supprime les doublons
+    
+    # Sélectionne et renomme les colonnes pour le deuxième dataframe
+    ufc_data_nationaliter1 <- ufc_data %>%
+      select(B_fighter, B_nat) %>%  # Sélectionne les colonnes B_fighter et B_nat
+      rename(fighter = B_fighter, nationaliter = B_nat) %>%  # Renomme les colonnes
+      distinct(fighter, nationaliter, .keep_all = TRUE)  # Supprime les doublons
+    
+    # Fusionne les deux dataframes
+    combined_ufc_data <- bind_rows(ufc_data_nationaliter, ufc_data_nationaliter1) %>%
+      distinct(fighter, nationaliter, .keep_all = TRUE)  # Fusionne et supprime les doublons
+    
+    # Compte le nombre de combattants par nationalité
+    fighter_counts <- combined_ufc_data %>%
+      group_by(nationaliter) %>%
+      summarise(count = n())  # Groupe par nationalité et compte les combattants
+    
+    # Obtient et prépare la carte du monde
+    world <- ne_countries(scale = "medium", returnclass = "sf")  # Charge une carte du monde
+    
+    # Fusionne les données de combattants avec la carte du monde
+    world_fighters <- merge(world, fighter_counts, by.x = "name", by.y = "nationaliter", all.x = TRUE)
+    world_fighters$count[is.na(world_fighters$count)] <- 0  # Remplace les NA par 0
+    
+    # Crée la carte avec ggplot2
+    ggplot(data = world_fighters) +
+      geom_sf(aes(fill = count)) +  # Remplit les pays en fonction du nombre de combattants
+      scale_fill_gradient(low = "white", high = "green", na.value = "lightgrey", guide = "colorbar") +  # Définit la palette de couleurs
+      labs(fill = "Nombre de combattants", title = "Répartition des combattants de l'UFC par nationalité") +  # Ajoute des étiquettes
+      theme_minimal() +  # Utilise un thème minimal
+      theme(legend.position = "bottom")  # Positionne la légende en bas
+  }
+}

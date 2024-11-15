@@ -1,0 +1,123 @@
+R_fighter: Nom du combattant du coin rouge.
+B_fighter: Nom du combattant du coin bleu.
+R_odds: Cotes de paris pour le combattant du coin rouge.
+B_odds: Cotes de paris pour le combattant du coin bleu.
+R_ev: Valeur attendue pour le pari sur le combattant du coin rouge.
+B_ev: Valeur attendue pour le pari sur le combattant du coin bleu.
+Date: Date de l'événement de combat.
+Location: Lieu de l'événement de combat.
+Country: Pays où se déroule l'événement.
+Winner: Vainqueur du combat (Rouge/Bleu).
+Title_bout: Indique si le combat est pour un titre.
+Weight_class: Catégorie de poids du combat.
+Gender: Genre des combattants.
+No_of_rounds: Nombre de rounds du combat.
+B_current_lose_streak: Série actuelle de défaites du combattant bleu.
+B_current_win_streak: Série actuelle de victoires du combattant bleu.
+B_draw: Nombre de matchs nuls du combattant bleu.
+B_avg_SIG_STR_landed: Nombre moyen de coups significatifs portés par le combattant bleu.
+B_avg_SIG_STR_pct: Pourcentage moyen de coups significatifs réussis par le combattant bleu.
+B_avg_SUB_ATT: Nombre moyen de tentatives de soumission par le combattant bleu.
+B_avg_TD_landed: Nombre moyen de takedowns réussis par le combattant bleu.
+B_avg_TD_pct: Pourcentage moyen de takedowns réussis par le combattant bleu.
+B_longest_win_streak: Plus longue série de victoires du combattant bleu.
+B_losses: Nombre total de défaites du combattant bleu.
+B_total_rounds_fought: Nombre total de rounds combattus par le combattant bleu.
+B_total_title_bouts: Nombre total de combats de titre disputés par le combattant bleu.
+B_win_by_Decision_Majority: Victoires par décision majoritaire du combattant bleu.
+B_win_by_Decision_Split: Victoires par décision partagée du combattant bleu.
+B_win_by_Decision_Unanimous: Victoires par décision unanime du combattant bleu.
+B_win_by_KO.TKO: Victoires par KO/TKO du combattant bleu.
+B_win_by_Submission: Victoires par soumission du combattant bleu.
+B_win_by_TKO_Doctor_Stoppage: Victoires par TKO sur arrêt du médecin du combattant bleu.
+B_wins: Nombre total de victoires du combattant bleu.
+B_Stance: Position de combat du combattant bleu (orthodoxe, gaucher, etc.).
+B_Height_cms: Taille du combattant bleu en centimètres.
+B_Reach_cms: Allonge (reach) du combattant bleu en centimètres.
+B_Weight_lbs: Poids du combattant bleu en livres.
+R_current_lose_streak: Série actuelle de défaites du combattant rouge.
+R_current_win_streak: Série actuelle de victoires du combattant rouge.
+R_draw: Nombre de matchs nuls du combattant rouge.
+R_avg_SIG_STR_landed: Nombre moyen de coups significatifs portés par le combattant rouge.
+R_avg_SIG_STR_pct: Pourcentage moyen de coups significatifs réussis par le combattant rouge.
+R_avg_SUB_ATT: Nombre moyen de tentatives de soumission par le combattant rouge.
+R_avg_TD_landed: Nombre moyen de takedowns réussis par le combattant
+R_avg_TD_pct: Pourcentage moyen de takedowns réussis par le combattant rouge.
+R_longest_win_streak: Plus longue série de victoires du combattant rouge.
+R_losses: Nombre total de défaites du combattant rouge.
+R_total_rounds_fought: Nombre total de rounds combattus par le combattant rouge.
+R_total_title_bouts: Nombre total de combats de titre disputés par le combattant rouge.
+R_win_by_Decision_Majority: Victoires par décision majoritaire du combattant rouge.
+R_win_by_Decision_Split: Victoires par décision partagée du combattant rouge.
+R_win_by_Decision_Unanimous: Victoires par décision unanime du combattant rouge.
+R_win_by_KO.TKO: Victoires par KO/TKO du combattant rouge.
+R_win_by_Submission: Victoires par soumission du combattant rouge.
+R_win_by_TKO_Doctor_Stoppage: Victoires par TKO sur arrêt du médecin du combattant rouge.
+R_wins: Nombre total de victoires du combattant rouge.
+R_Stance: Position de combat du combattant rouge (orthodoxe, gaucher, etc.).
+R_Height_cms: Taille du combattant rouge en centimètres.
+R_Reach_cms: Allonge (reach) du combattant rouge en centimètres.
+R_Weight_lbs: Poids du combattant rouge en livres.
+R_age: Âge du combattant rouge.
+B_age: Âge du combattant bleu.
+Lose_streak_dif: Différence dans les séries actuelles de défaites entre les combattants.
+Win_streak_dif: Différence dans les séries actuelles de victoires entre les combattants.
+Longest_win_streak_dif: Différence des plus longues séries de victoires entre les combattants.
+Win_dif: Différence dans le nombre total de victoires entre les combattants.
+Loss_dif: Différence dans le nombre total de défaites entre les combattants.
+Total_round_dif: Différence dans le nombre total de rounds combattus entre les combattants.
+Total_title_bout_dif: Différence dans le nombre total de combats de titre disputés entre les combattants.
+Ko_dif: Différence dans le nombre de victoires par KO/TKO entre les combattants.
+Sub_dif: Différence dans le nombre de victoires par soumission entre les combattants.
+Height_dif: Différence de taille entre les combattants.
+Reach_dif: Différence d'allonge entre les combattants.
+Age_dif: Différence d'âge entre les combattants.
+Sig_str_dif: Différence dans le nombre moyen de coups significatifs portés entre les combattants.
+Avg_sub_att_dif: Différence dans le nombre moyen de tentatives de soumission entre les combattants.
+Avg_td_dif: Différence dans le nombre moyen de takedowns réussis entre les combattants.
+Empty_arena: Indique si le combat s'est déroulé dans une arène vide (sans spectateurs).
+Constant_1: Une colonne constante, généralement utilisée pour des besoins techniques ou analytiques.
+B_match_weightclass_rank: Classement de poids du combattant bleu pour ce match spécifique.
+R_match_weightclass_rank: Classement de poids du combattant rouge pour ce match spécifique.
+R_Women's.Flyweight_rank: Classement du combattant rouge dans la catégorie des poids mouche féminins.
+R_Women's.Featherweight_rank: Classement du combattant rouge dans la catégorie des poids plume féminins.
+R_Women's.Strawweight_rank: Classement du combattant rouge dans la catégorie des poids paille féminins.
+R_Women's.Bantamweight_rank: Classement du combattant rouge dans la catégorie des poids coq féminins.
+R_Heavyweight_rank: Classement du combattant rouge dans la catégorie des poids lourds.
+R_Light.Heavyweight_rank: Classement du combattant rouge dans la catégorie des poids mi-lourds.
+R_Middleweight_rank: Classement du combattant rouge dans la catégorie des poids moyens.
+R_Welterweight_rank: Classement du combattant rouge dans la catégorie des poids mi-moyens.
+R_Lightweight_rank: Classement du combattant rouge dans la catégorie des poids légers.
+R_Featherweight_rank: Classement du combattant rouge dans la catégorie des poids plume.
+R_Bantamweight_rank: Classement du combattant rouge dans la catégorie des poids coq.
+R_Flyweight_rank: Classement du combattant rouge dans la catégorie des poids mouche.
+R_Pound.for.Pound_rank: Classement "pound-for-pound" (toutes catégories confondues) du combattant rouge.
+B_Women's.Flyweight_rank: Classement du combattant bleu dans la catégorie des poids mouche féminins.
+B_Women's.Featherweight_rank: Classement du combattant bleu dans la catégorie des poids plume féminins.
+B_Women's.Strawweight_rank: Classement du combattant bleu dans la catégorie des poids paille féminins.
+B_Women's.Bantamweight_rank: Classement du combattant bleu dans la catégorie des poids coq féminins.
+B_Heavyweight_rank: Classement du combattant bleu dans la catégorie des poids lourds.
+B_Light.Heavyweight_rank: Classement du combattant bleu dans la catégorie des poids mi-lourds.
+B_Middleweight_rank: Classement du combattant bleu dans la catégorie des poids moyens.
+B_Welterweight_rank: Classement du combattant bleu dans la catégorie des poids mi-moyens.
+B_Lightweight_rank: Classement du combattant bleu dans la catégorie des poids légers.
+B_Featherweight_rank: Classement du combattant bleu dans la catégorie des poids plume.
+B_Bantamweight_rank: Classement du combattant bleu dans la catégorie des poids coq.
+B_Flyweight_rank: Classement du combattant bleu dans la catégorie des poids mouche.
+B_Pound.for.Pound_rank: Classement "pound-for-pound" (toutes catégories confondues) du combattant bleu.
+Better_rank: Indique quel combattant a un meilleur classement.
+Finish: Type de finition du combat (KO, soumission, etc.).
+Finish_details: Détails supplémentaires sur la finition du combat.
+Finish_round: Round durant lequel le combat a été fini.
+Finish_round_time: Temps dans le round où le combat a été fini.
+Total_fight_time_secs: Temps total du combat en secondes.
+R_dec_odds: Cotes de paris pour une victoire par décision du combattant rouge.
+B_dec_odds: Cotes de paris pour une victoire par décision du combattant bleu.
+R_sub_odds: Cotes de paris pour une victoire par soumission du combattant rouge.
+B_sub_odds: Cotes de paris pour une victoire par soumission du combattant bleu.
+R_ko_odds: Cotes de paris pour une victoire par KO du combattant rouge.
+B_ko_odds: Cotes de paris pour une victoire par KO du combattant bleu.
+Latitude: Latitude géographique du lieu de l'événement.
+Longitude: Longitude géographique du lieu de l'événement.
+R_nat: Nationalité du combattant rouge.
+B_nat: Nationalité du combattant bleu.

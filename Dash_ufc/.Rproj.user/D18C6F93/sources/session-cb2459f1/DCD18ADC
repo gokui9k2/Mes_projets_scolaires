@@ -1,0 +1,26 @@
+{
+    "id": "DCD18ADC",
+    "path": "C:/Users/tycyr/OneDrive/Bureau/Rprojet_final/R_projet_andy_cyril/app.R",
+    "project_path": "app.R",
+    "type": "r_source",
+    "hash": "116260411",
+    "contents": "",
+    "dirty": false,
+    "created": 1699703520388.0,
+    "source_on_save": false,
+    "relative_order": 1,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "31,29",
+        "scrollLine": "13"
+    },
+    "folds": "73|38|97|2|\n100|38|108|2|\n109|37|123|2|\n110|46|116|4|\n126|45|128|2|\n129|38|131|2|\n132|37|134|2|\n135|42|137|2|\n138|38|140|2|\n141|56|143|2|\n144|41|146|2|\n147|49|149|2|\n150|35|153|2|\n154|33|163|2|\n155|42|162|4|\n165|33|169|2|\n170|35|174|2|\n177|34|181|2|\n183|34|187|2|\n189|33|193|2|\n196|29|204|2|\n",
+    "lastKnownWriteTime": 1699732904,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1699732904948,
+    "read_only": false,
+    "read_only_alternatives": []
+}
