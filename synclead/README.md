@@ -1,3 +1,4 @@
+## French Version:
 # SYNCLEAD
 
 Ce projet était un projet entrepreneurial. L'objectif de ce projet était d'implémenter un LLM (modèle de langage) dans une boîte vocale téléphonique. Pour cela, nous avons utilisé Twilio, qui permet de créer des boîtes vocales personnalisées avec sa bibliothèque Python. Le résumé de l'appel est ensuite transféré dans un tableau de bord via une application utilisant Django.
@@ -34,3 +35,40 @@ Voici un aperçu de notre application web avec le tableau de bord :
 
 Ce projet a été très enrichissant techniquement. Nous avons découvert de nouvelles technologies comme WebSocket et les transformers. C’est l'un des projets les plus complexes auxquels j'ai été confronté, car la gestion des WebSocket ainsi que l'intégration avec Twilio n'étaient pas simples. Pour améliorer ce projet, nous pourrions essayer de le déployer sur le web via AWS, perfectionner le chatbot, qui comporte encore des erreurs, ou encore dockeriser l'application.
 
+## English Version:
+
+# SYNCLEAD
+
+This project was an entrepreneurial initiative. The goal was to implement an LLM (language model) in a voicemail system. For this, we used Twilio, which allows you to create custom voicemail systems with its Python library. The call summary is then transferred to a dashboard via an application built with Django.
+
+## Project Scenario and Context
+
+It is often quite frustrating to reach a voicemail when calling a real estate agency, especially when moving for various reasons. For example, as an international student, finding accommodation in Paris was challenging: I made many calls without receiving any response or follow-up. This is where SYNCLEAD comes in. Our project enables any company with a telephone customer service to integrate a chatbot into their voicemail system. The bot can answer calls in the absence of staff, and then a summary of the call is sent to a sales advisor, etc.
+
+## User Guide
+
+To launch our project, you will need a `.env` file containing a Twilio number (which you can purchase online) along with your Twilio API key. You will also need an Ngrok API key to deploy the server online. Finally, an AssemblyAI API key is necessary for call transcription. Once the `.env` file is configured, just call your Twilio number and wait for the voicemail :) Before that, run the application with the following command:
+
+```python
+python main.py
+```
+
+## How does it work?
+
+The first step was to create a database where our LLM could draw from to formulate its responses. To do this, we created the `ingest.py` file, which generates a vector database representing the information from our real estate agency. When a question is posed to the LLM, the sentence is vectorized, then a linear projection is made on this vector to create an attention matrix, which allows the LLM to provide relevant answers.
+
+In the `modele.py` file, we built our LLM. We tested Mistral AI and LLaMA, but ultimately decided to go with Mistral AI, which we found to be more robust. This file also contains model settings, such as the maximum number of tokens for input and output, prompt engineering, etc.
+
+In `transcribe.py`, we created a class called `TwilioTranscriber`, which handles the transcription of calls to send this data to the LLM. Currently, we are focusing on English transcriptions, but in the future, we plan to expand to other languages.
+
+The `on_open` method is used to initiate a chat session, which could be useful in the future if we want to allow multiple sessions simultaneously with the same number. This is more costly but feasible with Twilio. The `on_data` method is called each time vocal data is received: once the user's sentence is finished, AssemblyAI detects sentence breaks with a 2-second delay, and then sends the information to the LLM. During the model's data processing, other voice data is not recorded to avoid any malfunction. This class also includes a function to handle errors, etc.
+
+The `main.py` file contains our application. We decided to use WebSocket because with a standard HTTP protocol, it was not possible to build this type of project. Communication with WebSocket occurs via JSON files, and the received information is decoded for processing by our transcription class.
+
+Here is a preview of our web application with the dashboard:
+
+![Alt Text](images/Screenshot%20from%202024-11-14%2018-55-34.png)
+
+## Conclusion
+
+This project has been very rewarding technically. We discovered new technologies like WebSocket and transformers. It’s one of the most complex projects I’ve worked on, as managing WebSocket communication and integrating with Twilio was challenging. To improve the project, we could try deploying it on the web via AWS, refine the chatbot (which still has some errors), or even containerize the application.
