@@ -30,7 +30,7 @@ docker-compose up
 
 Pour ce projet, nous avons décidé d'utiliser AWS RDS (Relational Database Service) afin d'avoir une première expérience avec les outils cloud proposés par AWS. La configuration de la base de données et de l'hôte se trouve dans notre fichier de configuration `db_config.py`. Dans le fichier `CreerDB.py`, vous trouverez les scripts de création de la base de données. Pour une meilleure compréhension de l'architecture de notre base de données, voici un diagramme ER : 
 
-![Database ER Diagram](park&see/images/Database%20ER%20diagram%20(crow's%20foot).png)
+![Database ER Diagram](images/Database%20ER%20diagram%20(crow's%20foot).png)
 
 Dans le fichier `app.py`, vous trouverez les différents endpoints qui nous permettent d’accéder au login, à la création de compte, etc. Nous avons également ajouté une fonction permettant d’envoyer une notification lorsque la fin du stationnement du véhicule approche, afin que nos utilisateurs soient plus réactifs.
 
@@ -38,48 +38,48 @@ Templates :
 
 ### Login : 
 
-![Screenshot](park&see/images/Screenshot%20from%202024-11-14%2015-02-14.png)
+![Screenshot](images/Screenshot%20from%202024-11-14%2015-02-14.png)
 
 ### Register : 
 
-![Screenshot](park&see/images/Screenshot%20from%202024-11-14%2015-02-33.png)
+![Screenshot](images/Screenshot%20from%202024-11-14%2015-02-33.png)
 
 ### Administrator views  : 
 
-![Administrator Views](park&see/images/Screenshot%20from%202024-11-14%2015-04-19.png)
+![Administrator Views](images/Screenshot%20from%202024-11-14%2015-04-19.png)
 
-![Administrator Tools](park&see/images/Screenshot%20from%202024-11-14%2015-04-45.png)
+![Administrator Tools](images/Screenshot%20from%202024-11-14%2015-04-45.png)
 
-![Administrator Reports](park&see/images/Screenshot%20from%202024-11-14%2015-05-18.png)
+![Administrator Reports](images/Screenshot%20from%202024-11-14%2015-05-18.png)
 
 ### Agent views : 
 
-![Admin Dashboard](park&see/images/Screenshot%20from%202024-11-14%2015-05-51.png)
+![Admin Dashboard](images/Screenshot%20from%202024-11-14%2015-05-51.png)
 
-![User Profile](park&see/images/Screenshot%20from%202024-11-14%2015-06-26.png)
+![User Profile](images/Screenshot%20from%202024-11-14%2015-06-26.png)
 
-![User Settings](park&see/images/Screenshot%20from%202024-11-14%2015-06-43.png)
+![User Settings](images/Screenshot%20from%202024-11-14%2015-06-43.png)
 
 ### User views :
-![Admin Dashboard Overview](park&see/images/Screenshot%20from%202024-11-14%2015-07-03.png)
+![Admin Dashboard Overview](images/Screenshot%20from%202024-11-14%2015-07-03.png)
 
-![Admin Settings](park&see/images/Screenshot%20from%202024-11-14%2015-07-41.png)
+![Admin Settings](images/Screenshot%20from%202024-11-14%2015-07-41.png)
 
-![Admin Tools](park&see/images/Screenshot%20from%202024-11-14%2015-07-56.png)
+![Admin Tools](images/Screenshot%20from%202024-11-14%2015-07-56.png)
 
-![User Management](park&see/images/Screenshot%20from%202024-11-14%2015-08-12.png)
+![User Management](images/Screenshot%20from%202024-11-14%2015-08-12.png)
 
 ### Confirmation Email : 
 
-![Confirmation Email](park&see/images/Screenshot%20from%202024-11-14%2015-08-35.png)
+![Confirmation Email](images/Screenshot%20from%202024-11-14%2015-08-35.png)
 
 ### Reservation Confirmation :
 
-![Reservation Confirmation](park&see/images/Screenshot%20from%202024-11-14%2015-08-51.png)
+![Reservation Confirmation](images/Screenshot%20from%202024-11-14%2015-08-51.png)
 
 ### 30 Minutes Before Reservation Ends : 
 
-![30 Minutes Before Reservation Ends](park&see/images/Screenshot%20from%202024-11-14%2015-09-07.png)
+![30 Minutes Before Reservation Ends](images/Screenshot%20from%202024-11-14%2015-09-07.png)
 
 
 ## TestDB.py
