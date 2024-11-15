@@ -20,7 +20,7 @@ services:
       dockerfile: Dockerfile
     restart: always
     environment:
-      DATABASE_URL: postgresql+psycopg2://Faker:nigGaTHEcops987@db:5432/UFC_DATABASE
+      DATABASE_URL: postgresql+psycopg2://Faker:AEbaa75daHADdae@db:5432/UFC_DATABASE
     ports:
       - "8000:8000"
     depends_on:
