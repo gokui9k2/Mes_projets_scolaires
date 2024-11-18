@@ -2,8 +2,6 @@
 
 Projet fictif de gestion d'un parc automobile pour une agglomération française
 
-[![](https://github.com/soyerg/it_equipe_4/raw/Eric/MaquetteCap/imagesReadme/landingscreen.png)](https://github.com/soyerg/it_equipe_4/blob/Eric/MaquetteCap/imagesReadme/landingscreen.png)
-
 ## Scénario et contexte du projet
 
 Votre société a répondu à un appel d'offre public pour une très grande agglomération en France. Ce marché concerne la gestion des places de parking, le paiement du stationnement et le suivi de celles-ci.
