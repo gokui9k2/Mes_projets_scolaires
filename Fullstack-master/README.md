@@ -1,69 +1,73 @@
 # FULL STACK DATA
 
-Cette application utilise Dash, un framework Python, avec Flask et Docker pour la mise en conteneur.
+This application uses Dash, a Python framework, with Flask and Docker for containerization.
 
-## Architecture
+## Developer Guide
 
-![Architecture Diagram](images/archi.png)
+- **Language:** Python  
+- **Framework:** Dash  
+- **Recommended IDE:** Visual Studio Code or PyCharm
 
-## Guide du Développeur
+## User Guide
 
-- **Langage** : Python
-- **Framework** : Dash
-- **IDE recommandé** : Visual Studio Code ou PyCharm
-
-## Guide Utilisateur
-
-Pour lancer ce projet, exécutez la commande suivante :
+To launch this project, run the following command:
 
 ```bash
 docker-compose up --build
 ```
 
-Voici un aperçu de notre application :
+Here’s a preview of our application:
 
-![Application Screenshot](images/app.png)
+![Application Screenshot](images/app1.png)
+![Application Screenshot](images/app2.png)
+![Application Screenshot](images/app3.png)
+![Application Screenshot](images/app4.png)
+![Application Screenshot](images/app5.png)
 
-### Comment cela fonctionne ?
+### How does it work?
 
-### Backend :
+### Backend:
 
 #### `insert_data.py`
 
-En début de projet, nous nous sommes concentrés sur l'insertion des données dans notre base de données PostgreSQL. Pour cela, nous avons d'abord défini les types des différentes variables dans le fichier CSV afin d'éviter tout problème de type lors de l'utilisation de cette base de données. Pour éviter les erreurs de duplication, nous avons décidé de supprimer les tables existantes avant chaque insertion. Ensuite, nous avons intégré les données par lots de 1000 lignes.
+At the start of the project, we focused on inserting data into our PostgreSQL database. To do this, we first defined the types of various variables in the CSV file to avoid any type issues when using this database. To prevent duplication errors, we decided to delete the existing tables before each insertion. Then, we loaded the data in batches of 1000 rows.
 
 #### `main.py`
 
-Dans ce fichier, nous avons initialisé différentes fonctions pour sécuriser l'accès aux routes de l'API en utilisant des tokens JWT. Pour garantir la confidentialité, nous stockons le nom d'utilisateur et le mot de passe nécessaires pour accéder à l'API dans un fichier `.env`. Les données sont ensuite récupérées via des requêtes SQL en utilisant SQLAlchemy. Pour éviter les erreurs de format, nous avons défini un schéma de données avec des classes, notamment `FighterData`, qui facilite la gestion des données sous forme de liste. Bien que nous aurions pu utiliser un dictionnaire, ce format est plus pratique pour la création de dataframes.
+In this file, we have initialized various functions to secure access to the API routes using JWT tokens. To ensure confidentiality, we use JWT tokens. How does it work? The user logs in with their credentials, and a request is then sent to the API to load the data. The data is subsequently retrieved through SQL queries using SQLAlchemy.
 
-Nous avons également rencontré des erreurs dues au fait que l'API n'était pas prête au moment des requêtes initiales. Pour y remédier, nous avons créé deux scripts `.sh` : `script.sh` et `wait-for-api.sh`, qui permettent de s'assurer que l'API est bien prête avant d'envoyer des requêtes.
+To avoid formatting errors, we defined a data schema with classes, notably `FighterData`, which makes it easier to manage the data as a list. While we could have used a dictionary, this format is more convenient for creating dataframes.
 
-### Frontend :
 
+### Frontend:
+
+For the front-end, we decided to create a fairly simple login and registration interface. This information is then sent to the users table, which stores all emails and passwords, which are hashed.
 #### `request.py`
 
-Ce fichier contient les fonctions nécessaires pour accéder à l'API.
+This file contains the functions necessary to access the API.
 
 #### `data_process.py`
 
-Ce fichier regroupe toutes les fonctions nécessaires pour traiter les données et créer les graphiques.
+This file contains all the functions needed to process the data and create the charts.
 
 #### `app.py`
 
-Ce fichier initialise l'application Flask et passe les données traitées à la page `index.html` pour un rendu dynamique en JavaScript.
+This file initializes the Flask application and passes the processed data to the `index.html` page for dynamic rendering in JavaScript.
 
-### Docker :
+elastic_ingestion.py:
 
-En ce qui concerne Docker, nous avons trois services :
+In this file, we process the data to create a dataframe containing information about different fighters. Then, we insert this data into an Elasticsearch container to enable searches in the dashboard.
 
-- Base de données PostgreSQL
+### Docker:
+
+Regarding Docker, we have three services:
+
+- PostgreSQL database
 - API
-- Application web
+- Web application
 
 ## Conclusion
 
-Ce projet nous a permis de découvrir Docker plus en profondeur et de gérer une application distribuée, ce qui diffère d'un simple lancement en local. Nous avons dû bien orchestrer nos services pour assurer un fonctionnement sans erreur. Nous avons également expérimenté avec la bibliothèque JavaScript Chart.js et envisagé une version en React. 
+This project allowed us to explore Docker in more depth and manage a distributed application, which is different from simply running it locally. We had to carefully orchestrate our services to ensure smooth operation without errors. We also experimented with the JavaScript library Chart.js and considered a React version.
 
-Nous serions ravis de recevoir vos retours sur notre travail ! 
-
-
+We would be happy to receive your feedback on our work!
