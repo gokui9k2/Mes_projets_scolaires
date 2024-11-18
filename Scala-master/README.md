@@ -2,10 +2,6 @@
 
 This project is a Scala project where we recreated an SQL Kernel Engine, which is a very enriching project for learning Scala. To make this project feasible, we decided to use only CSV files to insert the data. We did not implement all the nodes of a real database in this project, but we recreated the SELECT, WHERE, aggregation functions, as well as UNION. In the future, we will also attempt to recreate a join, although these algorithms are very complex.
 
-## Architecture
-
-![Architecture Diagram](img)
-
 ## Developer Guide
 
 - **Language**: Scala
