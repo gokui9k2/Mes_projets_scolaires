@@ -1,48 +1,48 @@
-# PARK & SEE 
+# PARK & SEE
 
-Projet fictif de gestion d'un parc automobile pour une agglomération française
+Fictitious project for managing a car park in a French metropolitan area
 
-## Scénario et contexte du projet
+## Project Scenario and Context
 
-Votre société a répondu à un appel d'offre public pour une très grande agglomération en France. Ce marché concerne la gestion des places de parking, le paiement du stationnement et le suivi de celles-ci.
+Your company has responded to a public tender for a large metropolitan area in France. This contract concerns the management of parking spaces, parking payment, and their monitoring.
 
-Cela permettra l’étude des usages, la vérification du paiement des usagers et la gestion des délits de stationnement (stationnement sur trottoir, etc.).
+This will allow for the study of usage, verification of user payments, and the management of parking violations (e.g., parking on sidewalks).
 
-À terme, cela permettra d’améliorer la fluidité du trafic et d'adapter les habitudes de stationnement, notamment pour le "dernier kilomètre". Les solutions devront être compatibles avec les nouvelles zones à faibles émissions pour la circulation et le stationnement. Il faudra également prendre en compte la nouvelle réglementation concernant le stationnement payant des deux-roues (2 et 3 roues).
+In the long run, this will help improve traffic flow and adapt parking habits, especially for the "last mile". The solutions will also need to be compatible with new low-emission zones for both circulation and parking. It will also be necessary to account for new regulations concerning paid parking for two-wheelers (2 and 3-wheel vehicles).
 
-Il y a aussi un enjeu concernant l'usage des nouveaux modes de transport, tels que les trottinettes électriques et les scooters électriques "uberisés", qui sont souvent mal stationnés. Le marché nécessite plusieurs études et outils permettant l'évolution du système d’information de l'agglomération :
+There is also a concern regarding the use of new modes of transport, such as electric scooters and "Uberized" electric scooters, which are often parked improperly. The contract requires several studies and tools to support the evolution of the metropolitan area's information system:
 
-- Mise en place d’un outil de suivi en temps réel des places de parking utilisées.
-- Enregistrement (par capteur et/ou identification par vidéo des plaques d'immatriculation, type de véhicule, électrique ou non, etc.) pour l’étude des données et des usages (temps et occupation des places de parking).
-- Mise en place de terminaux mobiles pour les prestataires municipaux (ayant délégation par la mairie) et la police, chargés du contrôle du paiement du stationnement (à distance ou non).
-- Interface pour les usagers des places de parking pour le suivi et paiement à distance (dans la limite de temps définie par la mairie et les lois sur les zones de stationnement).
+- Implementing a real-time tracking tool for used parking spaces.
+- Recording (via sensors and/or video identification of license plates, vehicle type, electric or not, etc.) for studying data and usage (time and occupation of parking spaces).
+- Deploying mobile terminals for municipal service providers (delegated by the city hall) and the police, responsible for monitoring parking payment (either remotely or on-site).
+- Interface for users of parking spaces for remote tracking and payment (within the time limits defined by the city hall and parking zone laws).
 
-## Comment ça fonctionne ? 
+## How does it work?
 
-Pour lancer le projet, il suffit d'exécuter les commandes suivantes : 
+To start the project, simply run the following commands:
 
 ```bash
 docker-compose build
 docker-compose up
 ```
 
-Pour ce projet, nous avons décidé d'utiliser AWS RDS (Relational Database Service) afin d'avoir une première expérience avec les outils cloud proposés par AWS. La configuration de la base de données et de l'hôte se trouve dans notre fichier de configuration `db_config.py`. Dans le fichier `CreerDB.py`, vous trouverez les scripts de création de la base de données. Pour une meilleure compréhension de l'architecture de notre base de données, voici un diagramme ER : 
+For this project, we decided to use AWS RDS (Relational Database Service) to gain experience with the cloud tools offered by AWS. The database and host configuration can be found in our `db_config.py` file. In the `CreerDB.py` file, you will find the database creation scripts. For a better understanding of the database architecture, here is an ER diagram:
 
 ![Database ER Diagram](images/Database%20ER%20diagram%20(crow's%20foot).png)
 
-Dans le fichier `app.py`, vous trouverez les différents endpoints qui nous permettent d’accéder au login, à la création de compte, etc. Nous avons également ajouté une fonction permettant d’envoyer une notification lorsque la fin du stationnement du véhicule approche, afin que nos utilisateurs soient plus réactifs.
+In the `app.py` file, you will find various endpoints that allow us to access the login, account creation, etc. We also added a function to send a notification when a vehicle's parking time is about to end, so our users can be more responsive.
 
-Templates : 
+### Templates:
 
-### Login : 
+#### Login:
 
 ![Screenshot](images/Screenshot%20from%202024-11-14%2015-02-14.png)
 
-### Register : 
+#### Register:
 
 ![Screenshot](images/Screenshot%20from%202024-11-14%2015-02-33.png)
 
-### Administrator views  : 
+#### Administrator Views:
 
 ![Administrator Views](images/Screenshot%20from%202024-11-14%2015-04-19.png)
 
@@ -50,7 +50,7 @@ Templates :
 
 ![Administrator Reports](images/Screenshot%20from%202024-11-14%2015-05-18.png)
 
-### Agent views : 
+#### Agent Views:
 
 ![Admin Dashboard](images/Screenshot%20from%202024-11-14%2015-05-51.png)
 
@@ -58,7 +58,8 @@ Templates :
 
 ![User Settings](images/Screenshot%20from%202024-11-14%2015-06-43.png)
 
-### User views :
+#### User Views:
+
 ![Admin Dashboard Overview](images/Screenshot%20from%202024-11-14%2015-07-03.png)
 
 ![Admin Settings](images/Screenshot%20from%202024-11-14%2015-07-41.png)
@@ -67,25 +68,24 @@ Templates :
 
 ![User Management](images/Screenshot%20from%202024-11-14%2015-08-12.png)
 
-### Confirmation Email : 
+#### Confirmation Email:
 
 ![Confirmation Email](images/Screenshot%20from%202024-11-14%2015-08-35.png)
 
-### Reservation Confirmation :
+#### Reservation Confirmation:
 
 ![Reservation Confirmation](images/Screenshot%20from%202024-11-14%2015-08-51.png)
 
-### 30 Minutes Before Reservation Ends : 
+#### 30 Minutes Before Reservation Ends:
 
 ![30 Minutes Before Reservation Ends](images/Screenshot%20from%202024-11-14%2015-09-07.png)
 
-
 ## TestDB.py
 
-Nous avons aussi pris soin d'ajouter des tests unitaires. Malheureusement, nous n'avons pas pu les automatiser. Ce serait une bonne amélioration d'utiliser des outils comme Jenkins pour effectuer des tests automatiquement. Une autre amélioration serait d'utiliser SQL DBT afin d'assurer la qualité des données qui entrent dans la base de données.
+We also took care to add unit tests. Unfortunately, we couldn't automate them. It would be a good improvement to use tools like Jenkins to perform tests automatically. Another improvement would be to use SQL DBT to ensure the quality of the data entering the database.
 
-# Conclusion 
+# Conclusion
 
-Ce projet a été très éducatif. Nous avons pu expérimenter avec les services cloud d’AWS et améliorer nos connaissances en matière de base de données. Pour la conteneurisation, nous avons choisi d'utiliser un framework bien connu. Parmi les améliorations futures, nous pourrions automatiser les tests et vérifier la qualité des données. D’autres fonctionnalités pourraient également être ajoutées.
+This project has been very educational. We were able to experiment with AWS cloud services and improve our database knowledge. For containerization, we chose to use a well-known framework. Among future improvements, we could automate the tests and verify data quality. Other features could also be added.
 
-Tout retour sur ce projet serait apprécié.
+Any feedback on this project would be appreciated.
