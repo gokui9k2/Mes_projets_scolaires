@@ -18,7 +18,7 @@ docker-compose up --build
 
 Here’s a preview of our application:
 
-[Voir la vidéo](https://youtu.be/4NgM59sO4DM)
+[Watch the video](https://youtu.be/4NgM59sO4DM)
 
 ### How does it work?
 
