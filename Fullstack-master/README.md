@@ -18,11 +18,7 @@ docker-compose up --build
 
 Here’s a preview of our application:
 
-![Application Screenshot](images/app1.png)
-![Application Screenshot](images/app2.png)
-![Application Screenshot](images/app3.png)
-![Application Screenshot](images/app4.png)
-![Application Screenshot](images/app5.png)
+![Titre de la vidéo](images/video.mp4)
 
 ### How does it work?
 
